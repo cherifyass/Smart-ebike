@@ -6,3 +6,7 @@ Dans le cadre du Projet SI de dexuième année de l'ESIR.
 # Contributeurs
 
 Loann NEVEU, Arno SIMON, Tuan Hoang DUANG, Antoinette DAVOST, Yassine CHERIF, Amira ROMDHANE, Marouane ADAB, Othman Sanhadji & Quentin LE GOFF
+
+# A propos
+
+Cours dispensé par Johann BOURCIER
