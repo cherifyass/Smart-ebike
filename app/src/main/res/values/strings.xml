@@ -10,5 +10,6 @@
         <item>HOME</item>
         <item>NAVIGATION</item>
     </string-array>
+    <string name="API_KEY">AIzaSyAtNVMgVuvllU2gW-_xSs1lfTIvTIW7nkk</string>
 
 </resources>
