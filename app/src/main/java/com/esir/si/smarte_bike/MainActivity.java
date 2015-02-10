@@ -78,6 +78,9 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_about:
                 // handle action
                 return true;
+            case R.id.action_search:
+                // handle action
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

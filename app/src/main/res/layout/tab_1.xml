@@ -7,10 +7,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="You Are In Tab 1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Connect to Raspery Pi"
         android:id="@+id/textViewTab1"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/buttonSignal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTab1"
+        android:layout_centerHorizontal="true"
+        android:text="Connect"
+        android:layout_marginTop="10dp"/>
 
 </RelativeLayout>
