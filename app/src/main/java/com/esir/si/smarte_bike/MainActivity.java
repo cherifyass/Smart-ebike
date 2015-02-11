@@ -1,14 +1,17 @@
 package com.esir.si.smarte_bike;
 
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import tabs.SlidingTabLayout;
+
+
 
 
 public class MainActivity extends ActionBarActivity {
@@ -78,8 +81,9 @@ public class MainActivity extends ActionBarActivity {
             case R.id.action_about:
                 // handle action
                 return true;
-            case R.id.action_search:
-                // handle action
+            case R.id.action_navigation:
+                Intent intent = new Intent(MainActivity.this, NavigationActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
