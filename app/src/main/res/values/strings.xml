@@ -11,5 +11,10 @@
         <item>NAVIGATION</item>
     </string-array>
     <string name="API_KEY">AIzaSyAtNVMgVuvllU2gW-_xSs1lfTIvTIW7nkk</string>
+    <string name="connexion">Se connecter ?</string>
+    <string name="itineraire">Créer un itinéraire</string>
+    <string name="donnees">Mes données</string>
+    <string name="apropos">A propos</string>
+    <string name="nomprojet">Smart E-Bike</string>
 
 </resources>

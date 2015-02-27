@@ -57,6 +57,8 @@ public class MainActivity extends ActionBarActivity {
 
         // Setting the ViewPager For the SlidingTabsLayout
         mTabs.setViewPager(mPager);
+
+
     }
 
     @Override
