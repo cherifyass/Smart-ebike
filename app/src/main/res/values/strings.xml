@@ -16,5 +16,10 @@
     <string name="donnees">Mes données</string>
     <string name="apropos">A propos</string>
     <string name="nomprojet">Smart E-Bike</string>
+    <string name="title_activity_donnees">donnees</string>
+    <string name="statistiques">Mes statistiques</string>
+    <string name="sante">Ma santé</string>
+    <string name="meteo">Météo</string>
+    <string name="titre_info">Mes informations</string>
 
 </resources>
