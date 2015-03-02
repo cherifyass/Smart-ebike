@@ -3,10 +3,10 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="com.esir.si.smarte_bike.donnees">
+    tools:context="com.esir.si.smarte_bike.Donnees">
 
     <TextView
-        android:text="@string/titre_info"
+        android:text="@string/donnees"
         android:gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />

@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Connect to Raspery Pi"
-        android:id="@+id/textViewTab1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:text="@string/app_name"
+        android:textAllCaps="true"
+        android:gravity="center"
+        />
 
     <Button
-        android:id="@+id/buttonSignal"
-        android:layout_width="wrap_content"
+        android:id="@+id/bouton_connexion"
+        android:text="@string/connexion"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewTab1"
         android:layout_centerHorizontal="true"
-        android:text="Connect"
+        android:layout_marginTop="10dp"/>
+    <Button
+        android:id="@+id/bouton_itineraire"
+        android:text="@string/creerItineraire"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+    <Button
+        android:id="@+id/bouton_donnees"
+        android:text="@string/mesItineraires"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+    <Button
+        android:id="@+id/bouton_apropos"
+        android:text="@string/apropos"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
 
-</RelativeLayout>
+</LinearLayout>
