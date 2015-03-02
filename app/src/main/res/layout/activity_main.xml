@@ -1,9 +1,96 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:orientation="vertical"     tools:context=".MainActivity"
+    android:background="#00000000"
+    android:gravity="center_horizontal"
+    >
 
+
+    <Gallery
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gallery"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mok" />
+<!--
+    <?xml version="1.0" encoding="utf-8"?>
+    <set xmlns:android="http://schemas.android.com/apk/res/android">
+        <rotate android:fromDegrees="0"
+            android:toDegrees="360"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:duration="600"
+            android:repeatMode="restart"
+            android:repeatCount="infinite"
+            android:interpolator="@android:anim/cycle_interpolator"/>
+
+    </set>
+    -->
+    <Button
+
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:text="se connecter"
+        android:id="@+id/button"
+        android:background="#ff4ca7ff"
+        android:layout_marginBottom="52dp"
+        android:layout_marginTop="60dp"
+
+        android:textColor="#fffffbfb"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
+
+    <Button
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:text="itineraire"
+        android:id="@+id/button2"
+        android:background="#ff4ca7ff"
+        android:layout_marginBottom="52dp"
+        android:textColor="#fffffbfb"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
+
+    <Button
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:text="Mes itineraires"
+        android:id="@+id/button3"
+        android:background="#ff4ca7ff"
+        android:layout_marginBottom="52dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fffffbfb"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
+
+
+    <Button
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:text="Parametres"
+        android:id="@+id/button4"
+        android:background="#ff4ca7ff"
+        android:layout_marginBottom="52dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#fffffbfb"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
+
+    <Button
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:text="A propos"
+        android:id="@+id/button5"
+        android:background="#ff4ca7ff"
+        android:textColor="#fffffbfb"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
 
 </LinearLayout>
