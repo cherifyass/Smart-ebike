@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"     tools:context=".MainActivity"
-    android:background="#00000000"
+    android:background=""
     android:gravity="center_horizontal"
     >
 
@@ -48,7 +48,7 @@
         android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
 
     <Button
-        android:layout_width="215dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:text="itineraire"
         android:id="@+id/button2"
