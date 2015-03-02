@@ -5,28 +5,35 @@
     android:layout_height="fill_parent"
     tools:context="com.esir.si.smarte_bike.Donnees">
 
-    <TextView
-        android:text="@string/donnees"
-        android:gravity="center"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/donnees"
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/statistiques"
-        android:text="@string/statistiques"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/statistiques"
+            android:text="@string/statistiques"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_bouton"
+            android:height="10dp" />
+
 
     <TextView
         android:id="@+id/texteStats"
-        android:text="@string/hello_world"
+        android:text="@string/lorem"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/meteo"
         android:text="@string/meteo"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bouton"
+        android:height="10dp" />
 
     <TextView
         android:id="@+id/texteMeteo"
@@ -38,7 +45,9 @@
         android:id="@+id/sante"
         android:text="@string/sante"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bouton"
+        android:height="10dp" />
 
     <TextView
         android:id="@+id/texteSante"
