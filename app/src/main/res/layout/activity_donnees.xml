@@ -1,3 +1,4 @@
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -5,20 +6,22 @@
     android:layout_height="fill_parent"
     tools:context="com.esir.si.smarte_bike.Donnees">
 
-        <TextView
-            android:text="@string/donnees"
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
 
 
-        <Button
-            android:id="@+id/statistiques"
-            android:text="@string/statistiques"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_bouton"
-            android:height="10dp" />
+    <TextView
+        android:text="@string/donnees"
+        android:gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:id="@+id/statistiques"
+        android:text="@string/statistiques"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_bouton"
+        android:height="10dp" />
 
 
     <TextView

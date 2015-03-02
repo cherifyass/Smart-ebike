@@ -3,83 +3,89 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity"
-    android:gravity="center_horizontal"
-    android:textSize="16dp"
-    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity"
+        android:gravity="center_horizontal"
+        android:textSize="16dp"
+        >
+
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo"
-        android:contentDescription="@string/descriptionLogo"/>
-<!--
-    <?xml version="1.0" encoding="utf-8"?>
-    <set xmlns:android="http://schemas.android.com/apk/res/android">
-        <rotate android:fromDegrees="0"
-            android:toDegrees="360"
-            android:pivotX="50%"
-            android:pivotY="50%"
-            android:duration="600"
-            android:repeatMode="restart"
-            android:repeatCount="infinite"
-            android:interpolator="@android:anim/cycle_interpolator"/>
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:contentDescription="@string/descriptionLogo"/>
+        <!--
+            <?xml version="1.0" encoding="utf-8"?>
+            <set xmlns:android="http://schemas.android.com/apk/res/android">
+                <rotate android:fromDegrees="0"
+                    android:toDegrees="360"
+                    android:pivotX="50%"
+                    android:pivotY="50%"
+                    android:duration="600"
+                    android:repeatMode="restart"
+                    android:repeatCount="infinite"
+                    android:interpolator="@android:anim/cycle_interpolator"/>
 
-    </set>
-    -->
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:text="@string/connexion"
-        android:id="@+id/button"
-        android:background="@drawable/background_bouton"
-        android:layout_marginBottom="52dp"
-        android:layout_marginTop="60dp"
-        android:textColor="#fffffbfb" />
+            </set>
+            -->
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="@string/connexion"
+            android:id="@+id/button"
+            android:background="@drawable/background_bouton"
+            android:layout_marginBottom="52dp"
+            android:layout_marginTop="60dp"
+            android:textColor="#fffffbfb" />
 
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:text="@string/creerItineraire"
-        android:id="@+id/button2"
-        android:background="@drawable/background_bouton"
-        android:layout_marginBottom="52dp"
-        android:textColor="#fffffbfb" />
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="@string/creerItineraire"
+            android:id="@+id/button2"
+            android:background="@drawable/background_bouton"
+            android:layout_marginBottom="52dp"
+            android:textColor="#fffffbfb" />
 
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:text="@string/mesItineraires"
-        android:id="@+id/button3"
-        android:background="@drawable/background_bouton"
-        android:layout_marginBottom="52dp"
-        android:textColor="#fffffbfb"/>
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="@string/mesItineraires"
+            android:id="@+id/button3"
+            android:background="@drawable/background_bouton"
+            android:layout_marginBottom="52dp"
+            android:textColor="#fffffbfb"/>
 
 
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:text="@string/parametres"
-        android:id="@+id/button4"
-        android:background="@drawable/background_bouton"
-        android:layout_marginBottom="52dp"
-        android:textColor="#fffffbfb" />
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="@string/parametres"
+            android:id="@+id/button4"
+            android:background="@drawable/background_bouton"
+            android:layout_marginBottom="52dp"
+            android:textColor="#fffffbfb" />
 
-    <Button
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
-        android:text="@string/apropos"
-        android:id="@+id/button5"
-        android:background="@drawable/background_bouton"
-        android:textColor="#fffffbfb"/>
+        <Button
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="@string/apropos"
+            android:id="@+id/button5"
+            android:background="@drawable/background_bouton"
+            android:textColor="#fffffbfb"/>
 
-</LinearLayout>
+    </LinearLayout>
 </ScrollView>
