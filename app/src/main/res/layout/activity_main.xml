@@ -1,9 +1,16 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"     tools:context=".MainActivity"
-    android:background=""
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity"
     android:gravity="center_horizontal"
+    android:textSize="16dp"
     >
 
 
@@ -31,52 +38,48 @@
     <Button
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:text="se connecter"
+        android:text="@string/connexion"
         android:id="@+id/button"
-        android:background="#ff4ca7ff"
+        android:background="@drawable/background_bouton"
         android:layout_marginBottom="52dp"
         android:layout_marginTop="60dp"
-        android:textColor="#fffffbfb"
-        android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
+        android:textColor="#fffffbfb" />
 
     <Button
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:text="itineraire"
+        android:text="@string/creerItineraire"
         android:id="@+id/button2"
-        android:background="#ff4ca7ff"
+        android:background="@drawable/background_bouton"
         android:layout_marginBottom="52dp"
-        android:textColor="#fffffbfb"
-        android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
+        android:textColor="#fffffbfb" />
 
     <Button
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:text="Mes itineraires"
+        android:text="@string/mesItineraires"
         android:id="@+id/button3"
-        android:background="#ff4ca7ff"
+        android:background="@drawable/background_bouton"
         android:layout_marginBottom="52dp"
-        android:textColor="#fffffbfb"
-        android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
+        android:textColor="#fffffbfb"/>
 
 
     <Button
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:text="Parametres"
+        android:text="@string/parametres"
         android:id="@+id/button4"
-        android:background="#ff4ca7ff"
+        android:background="@drawable/background_bouton"
         android:layout_marginBottom="52dp"
-        android:textColor="#fffffbfb"
-        android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
+        android:textColor="#fffffbfb" />
 
     <Button
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:text="A propos"
+        android:text="@string/apropos"
         android:id="@+id/button5"
-        android:background="#ff4ca7ff"
-        android:textColor="#fffffbfb"
-        android:textSize="16dp" />
+        android:background="@drawable/background_bouton"
+        android:textColor="#fffffbfb"/>
 
 </LinearLayout>
+</ScrollView>
