@@ -22,7 +22,7 @@
 
 
 
-    <string name="title_activity_donnees">donnees</string>
+    <string name="title_activity_donnees">Donnees</string>
     <string name="donnees">Mes données</string>
     <string name="statistiques">Mes statistiques</string>
     <string name="sante">Ma santé</string>
