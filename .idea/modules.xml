@@ -4,6 +4,11 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Smart-ebike.iml" filepath="$PROJECT_DIR$/Smart-ebike.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+<<<<<<< HEAD
+      <module fileurl="file://$PROJECT_DIR$/ebike.iml" filepath="$PROJECT_DIR$/ebike.iml" />
+      <module fileurl="file://$PROJECT_DIR$/smart_e_bike.iml" filepath="$PROJECT_DIR$/smart_e_bike.iml" />
+=======
+>>>>>>> 51a90fee28cecbf210dd2643d7301ba136c29267
     </modules>
   </component>
 </project>
