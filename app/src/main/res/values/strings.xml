@@ -28,6 +28,7 @@
     <string name="sante">Ma santé</string>
     <string name="meteo">Météo</string>
     <string name="lorem">Lorem ipsum tralalalala super youhou</string>
+    <string name="descriptionLogo">Logo de l\'application Smart E-Bike</string>
 
 
 </resources>

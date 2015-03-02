@@ -7,18 +7,13 @@
     >
 
 
-    <Gallery
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gallery"
-        android:layout_gravity="center_horizontal"
-        />
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/mok" />
+        android:src="@drawable/logo"
+        android:contentDescription="@string/descriptionLogo"/>
 <!--
     <?xml version="1.0" encoding="utf-8"?>
     <set xmlns:android="http://schemas.android.com/apk/res/android">
@@ -34,7 +29,6 @@
     </set>
     -->
     <Button
-
         android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:text="se connecter"
@@ -42,9 +36,7 @@
         android:background="#ff4ca7ff"
         android:layout_marginBottom="52dp"
         android:layout_marginTop="60dp"
-
         android:textColor="#fffffbfb"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
 
     <Button
@@ -55,7 +47,6 @@
         android:background="#ff4ca7ff"
         android:layout_marginBottom="52dp"
         android:textColor="#fffffbfb"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
 
     <Button
@@ -65,9 +56,7 @@
         android:id="@+id/button3"
         android:background="#ff4ca7ff"
         android:layout_marginBottom="52dp"
-        android:layout_gravity="center_horizontal"
         android:textColor="#fffffbfb"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
 
 
@@ -78,9 +67,7 @@
         android:id="@+id/button4"
         android:background="#ff4ca7ff"
         android:layout_marginBottom="52dp"
-        android:layout_gravity="center_horizontal"
         android:textColor="#fffffbfb"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
 
     <Button
@@ -90,7 +77,6 @@
         android:id="@+id/button5"
         android:background="#ff4ca7ff"
         android:textColor="#fffffbfb"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
-        android:textSize="@dimen/abc_action_bar_icon_vertical_padding_material" />
+        android:textSize="16dp" />
 
 </LinearLayout>
