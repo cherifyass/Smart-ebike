@@ -50,9 +50,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NavigationActivity"
-            android:label="Navigation" />
-        <activity
             android:name=".Donnees"
             android:label="@string/title_activity_donnees" >
         </activity>

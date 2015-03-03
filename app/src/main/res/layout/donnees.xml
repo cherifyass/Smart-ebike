@@ -6,7 +6,12 @@
     android:layout_height="fill_parent"
     tools:context="com.esir.si.smarte_bike.Donnees">
 
-
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:contentDescription="@string/descriptionLogo"/>
 
     <TextView
         android:text="@string/donnees"

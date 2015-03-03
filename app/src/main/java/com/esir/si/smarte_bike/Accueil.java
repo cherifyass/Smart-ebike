@@ -1,19 +1,19 @@
 package com.esir.si.smarte_bike;
 
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Donnees extends Fragment {
+/**
+ * Created by Quentin on 03/03/2015.
+ */
+public class Accueil extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.donnees, container, false);
+        return inflater.inflate(R.layout.accueil, container, false);
     }
 }

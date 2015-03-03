@@ -1,47 +1,40 @@
 package com.esir.si.smarte_bike;
 
-
-import android.content.Intent;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+import java.util.Vector;
 
 
+public class MainActivity extends FragmentActivity {
 
-
-public class MainActivity extends ActionBarActivity {
+    private PagerAdapter mPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        super.setContentView(R.layout.activity_main);
 
+        // Création de la liste de Fragments que fera défiler le PagerAdapter
+        List fragments = new Vector();
 
+        // Ajout des Fragments dans la liste
+        fragments.add(android.support.v4.app.Fragment.instantiate(this, Donnees.class.getName()));
+        fragments.add(android.support.v4.app.Fragment.instantiate(this, Accueil.class.getName()));
+        fragments.add(android.support.v4.app.Fragment.instantiate(this, Navigation.class.getName()));
+
+        // Création de l'adapter qui s'occupera de l'affichage de la liste de
+        // Fragments
+        this.mPagerAdapter = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
+        ViewPager pager = (ViewPager) super.findViewById(R.id.viewpager);
+        // Affectation de l'adapter au ViewPager
+        pager.setAdapter(this.mPagerAdapter);
+        pager.setCurrentItem(1);
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 }
