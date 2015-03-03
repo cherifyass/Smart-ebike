@@ -10,8 +10,6 @@ android:layout_height="fill_parent">
     android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:gravity="center_horizontal"
-    android:textSize="16dp"
     >
     <ImageView
         android:id="@+id/logo"
@@ -36,50 +34,40 @@ android:layout_height="fill_parent">
         </set>
         -->
     <Button
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
         android:text="@string/connexion"
         android:id="@+id/button"
-        android:background="@drawable/background_bouton"
-        android:layout_marginBottom="52dp"
-        android:layout_marginTop="60dp"
-        android:textColor="#fffffbfb" />
+        style="@style/bouton"
+
+        />
 
     <Button
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
         android:text="@string/creerItineraire"
         android:id="@+id/button2"
-        android:background="@drawable/background_bouton"
-        android:layout_marginBottom="52dp"
-        android:textColor="#fffffbfb" />
+        style="@style/bouton"
+
+        />
 
     <Button
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
         android:text="@string/mesItineraires"
         android:id="@+id/button3"
-        android:background="@drawable/background_bouton"
-        android:layout_marginBottom="52dp"
-        android:textColor="#fffffbfb"/>
+        style="@style/bouton"
+     />
 
 
     <Button
-        android:layout_width="230dp"
-        android:layout_height="wrap_content"
         android:text="@string/parametres"
         android:id="@+id/button4"
-        android:background="@drawable/background_bouton"
-        android:layout_marginBottom="52dp"
-        android:textColor="#fffffbfb" />
-
-    <Button
+        style="@style/bouton"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
+        />
+
+    <Button
         android:text="@string/apropos"
         android:id="@+id/button5"
-        android:background="@drawable/background_bouton"
-        android:textColor="#fffffbfb"/>
+        style="@style/bouton"
+
+        />
 
 </LinearLayout>
 </ScrollView>

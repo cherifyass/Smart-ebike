@@ -23,10 +23,7 @@
     <Button
         android:id="@+id/statistiques"
         android:text="@string/statistiques"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_bouton"
-        android:height="10dp" />
+        style="@style/bouton" />
 
 
     <TextView
@@ -38,10 +35,7 @@
     <Button
         android:id="@+id/meteo"
         android:text="@string/meteo"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_bouton"
-        android:height="10dp" />
+        style="@style/bouton" />
 
     <TextView
         android:id="@+id/texteMeteo"
@@ -52,10 +46,7 @@
     <Button
         android:id="@+id/sante"
         android:text="@string/sante"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_bouton"
-        android:height="10dp" />
+        style="@style/bouton"/>
 
     <TextView
         android:id="@+id/texteSante"
