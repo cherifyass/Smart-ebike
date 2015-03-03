@@ -1,57 +1,61 @@
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="com.esir.si.smarte_bike.Donnees">
+    tools:context=".Donnees">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo"
-        android:contentDescription="@string/descriptionLogo"/>
+        android:orientation="vertical">
 
-    <TextView
-        android:text="@string/donnees"
-        android:gravity="center"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        <TextView
 
-
-    <Button
-        android:id="@+id/statistiques"
-        android:text="@string/statistiques"
-        style="@style/bouton" />
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/donnees" />
 
 
-    <TextView
-        android:id="@+id/texteStats"
-        android:text="@string/lorem"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/statistiques"
+            style="@style/bouton"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="@string/statistiques" />
 
-    <Button
-        android:id="@+id/meteo"
-        android:text="@string/meteo"
-        style="@style/bouton" />
 
-    <TextView
-        android:id="@+id/texteMeteo"
-        android:text="@string/hello_world"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/texteStats"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem" />
 
-    <Button
-        android:id="@+id/sante"
-        android:text="@string/sante"
-        style="@style/bouton"/>
+        <Button
+            android:id="@+id/meteo"
+            style="@style/bouton"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="@string/meteo" />
 
-    <TextView
-        android:id="@+id/texteSante"
-        android:text="@string/hello_world"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/texteMeteo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_world" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/sante"
+            style="@style/bouton"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sante" />
+
+        <TextView
+            android:id="@+id/texteSante"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_world" />
+
+    </LinearLayout>
+</ScrollView>
