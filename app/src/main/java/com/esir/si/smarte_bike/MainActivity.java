@@ -1,12 +1,11 @@
 package com.esir.si.smarte_bike;
 
-import android.app.Fragment;
+
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
+
 
 import java.util.List;
 import java.util.Vector;
@@ -35,6 +34,10 @@ public class MainActivity extends FragmentActivity {
         ViewPager pager = (ViewPager) super.findViewById(R.id.viewpager);
         // Affectation de l'adapter au ViewPager
         pager.setAdapter(this.mPagerAdapter);
+        //On fixe la page de début (page d'accueil)
         pager.setCurrentItem(1);
+
     }
+
+
 }

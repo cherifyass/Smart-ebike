@@ -16,9 +16,9 @@
 
     <!-- Page Mes donnnées -->
     <string name="donnees">Mes données</string>
-    <string name="statistiques">Mes statistiques</string>
-    <string name="sante">Ma santé</string>
-    <string name="meteo">Météo</string>
+    <string name="statistiques">+ Mes Statistiques</string>
+    <string name="sante">+ Ma santé</string>
+    <string name="meteo">+ Météo</string>
 
 
     <string name="lorem">Lorem ipsum tralalalala super youhou</string>
