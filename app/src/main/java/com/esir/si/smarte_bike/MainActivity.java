@@ -3,6 +3,7 @@ package com.esir.si.smarte_bike;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
@@ -15,10 +16,15 @@ public class MainActivity extends FragmentActivity {
 
     private PagerAdapter mPagerAdapter;
 
+    public static FragmentManager fragmentManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_main);
+
+        // initialising the object of the FragmentManager.
+        fragmentManager = getSupportFragmentManager();
 
         // Création de la liste de Fragments que fera défiler le PagerAdapter
         List fragments = new Vector();
@@ -37,7 +43,6 @@ public class MainActivity extends FragmentActivity {
         //On fixe la page de début (page d'accueil)
         pager.setCurrentItem(1);
 
+
     }
-
-
 }
