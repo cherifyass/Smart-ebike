@@ -24,6 +24,14 @@
 
             </set>
             -->
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/descriptionLogo"
+            android:src="@drawable/logo" />
+
         <Button
             android:id="@+id/boutonConnexion"
             style="@style/bouton"
