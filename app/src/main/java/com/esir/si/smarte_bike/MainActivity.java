@@ -8,8 +8,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.EditText;
 
+
+import com.esir.si.smarte_bike.navigation.Itineraire;
+import com.esir.si.smarte_bike.navigation.Navigation;
 
 import java.util.List;
 import java.util.Vector;
@@ -52,6 +54,12 @@ public class MainActivity extends FragmentActivity {
 
     public void goTo(View view){
         Intent intent = new Intent(this, Connexion.class);
+        startActivity(intent);
+    }
+
+    // Formulaire itineraire
+    public void newItinerary(View view){
+        Intent intent = new Intent(this,Itineraire.class);
         startActivity(intent);
     }
 

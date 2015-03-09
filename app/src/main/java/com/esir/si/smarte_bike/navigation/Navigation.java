@@ -1,4 +1,4 @@
-package com.esir.si.smarte_bike;
+package com.esir.si.smarte_bike.navigation;
 
 /**
  * Created by Quentin on 03/03/2015.
@@ -6,6 +6,7 @@ package com.esir.si.smarte_bike;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -19,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.esir.si.smarte_bike.Connexion;
+import com.esir.si.smarte_bike.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
