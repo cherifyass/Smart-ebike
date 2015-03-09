@@ -25,12 +25,12 @@
             </set>
             -->
         <Button
-            android:id="@+id/button"
+            android:id="@+id/boutonConnexion"
             style="@style/bouton"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:text="@string/connexion"
-
+            android:onClick="goTo"
             />
 
         <Button
