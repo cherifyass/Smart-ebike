@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 
+import com.esir.si.smarte_bike.sup.MyPagerAdapter;
+
 import java.util.List;
 import java.util.Vector;
 

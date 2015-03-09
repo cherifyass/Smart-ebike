@@ -27,12 +27,6 @@ public class Connexion extends ActionBarActivity {
     private TextView etat = null;
     private TextView message = null;
 
-    BluetoothAdapter blueAdapter = BluetoothAdapter.getDefaultAdapter();
-    private final static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
-    private Set<BluetoothDevice> appareils;
-    public BluetoothDevice bdevice = null;
-    public BluetoothSocket bsocket = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,66 +45,6 @@ public class Connexion extends ActionBarActivity {
 
 
     }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode != REQUEST_CODE_ENABLE_BLUETOOTH)
-            return;
-        if (resultCode == RESULT_OK) {
-            // L'utilisation a activé le bluetooth
-            Toast.makeText(this,"Connexion Bluetooth activée", Toast.LENGTH_SHORT).show();
-        } else {
-            // L'utilisation n'a pas activé le bluetooth
-            Toast.makeText(this,"Impossible d'activer la connexion", Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
-    public void seConnecter(View view) {
-        if (blueAdapter == null) {
-            Toast.makeText(this, "Votre téléphone ne dispose pas de la technologie Bluetooth,hahahaha t'es nul !!!!", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(this, "Génial, votre téléphone a le Bluetooth, ça va roxer du poulet", Toast.LENGTH_SHORT).show();
-
-        }
-        if (!blueAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_CODE_ENABLE_BLUETOOTH);
-        }
-
-
-        appareils = blueAdapter.getBondedDevices();
-        for (BluetoothDevice blueDevice : appareils) {
-            Toast.makeText(this, "Device = " + blueDevice.getName(), Toast.LENGTH_SHORT).show();
-        }
-
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(bluetoothReceiver, filter);
-
-        blueAdapter.startDiscovery();
-
-
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        blueAdapter.cancelDiscovery();
-        unregisterReceiver(bluetoothReceiver);
-    }
-
-
-    private final BroadcastReceiver bluetoothReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                Toast.makeText(Connexion.this, "New Device = " + device.getName(), Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

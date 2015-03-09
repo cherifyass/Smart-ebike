@@ -13,23 +13,25 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Accueil extends Fragment{
+public class Accueil extends Fragment {
 
     Animation animationconnect;
     Button monBouton;
     TextView monTextView;
     FragmentActivity context = null;
+
     @Override
     public void onAttach(Activity activity) {
         context = (FragmentActivity) activity;
         super.onAttach(activity);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
-        View view =  inflater.inflate(R.layout.accueil, container, false);
+        View view = inflater.inflate(R.layout.accueil, container, false);
 
         monBouton = (Button) view.findViewById(R.id.button2);
 
