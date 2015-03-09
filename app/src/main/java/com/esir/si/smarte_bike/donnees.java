@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 
 public class Donnees extends Fragment{
 
-    public View contenu_statistiques = null;
     private Slider slider = null;
 
     private Button boutonStat = null;
