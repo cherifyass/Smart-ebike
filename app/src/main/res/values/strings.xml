@@ -5,8 +5,11 @@
 
     <string name="hello_world">Hello world!</string>
 
-   <!--<string name="API_KEY">AIzaSyAtNVMgVuvllU2gW-_xSs1lfTIvTIW7nkk</string>-->
-    <string name="API_KEY">AIzaSyC7me4xClDs77brOR8h9lbScQXe2OpqBCA</string>
+
+    <!--<string name="API_KEY">AIzaSyAtNVMgVuvllU2gW-_xSs1lfTIvTIW7nkk</string>-->
+    <!--AIzaSyC7me4xClDs77brOR8h9lbScQXe2OpqBCA-->
+
+    <!-- OnePlus --><string name="API_KEY">AIzaSyDkT6PCDa-kjdwgXU527kF01z8tEFyUWd8</string>
 
 
     <!-- Page d'accueil -->
@@ -30,5 +33,7 @@
     <string name="following_label">Not following</string>
     <string name="position_label">Position</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_connexion">Connexion</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

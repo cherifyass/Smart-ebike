@@ -13,6 +13,7 @@ https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend
     string in this file.
     -->
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">
-        AIzaSyC7me4xClDs77brOR8h9lbScQXe2OpqBCA
+       <!-- AIzaSyC7me4xClDs77brOR8h9lbScQXe2OpqBCA -->
+       <!-- OnePlus -->AIzaSyDkT6PCDa-kjdwgXU527kF01z8tEFyUWd8
     </string>
 </resources>

@@ -1,11 +1,14 @@
 package com.esir.si.smarte_bike;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.EditText;
 
 
 import java.util.List;
@@ -45,4 +48,11 @@ public class MainActivity extends FragmentActivity {
 
 
     }
+
+
+    public void goTo(View view){
+        Intent intent = new Intent(this, Connexion.class);
+        startActivity(intent);
+    }
+
 }
