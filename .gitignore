@@ -8,3 +8,6 @@
 *.iml
 **/*.iml
 smart_e_bike.iml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/dictionaries/Loann.xml
