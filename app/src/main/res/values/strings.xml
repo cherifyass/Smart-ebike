@@ -52,4 +52,9 @@
     <string name="cb_assistance">Activer l\'assitance</string>
     <string name="btn_go">Calculer itinéraire</string>
 
+    <!-- Historique -->
+    <string name="détails">voir</string>
+    <string name="arrivée">Arrivée</string>
+    <string name="date">Date</string>
+    <string name="plus">Plus</string>
 </resources>
