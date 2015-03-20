@@ -57,4 +57,5 @@
     <string name="arrivée">Arrivée</string>
     <string name="date">Date</string>
     <string name="plus">Plus</string>
+    <string name="title_activity_historique">Historique</string>
 </resources>
