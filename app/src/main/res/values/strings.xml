@@ -9,8 +9,8 @@
     <!--<string name="API_KEY">AIzaSyC7me4xClDs77brOR8h9lbScQXe2OpqBCA</string>-->
     <!--AIzaSyC7me4xClDs77brOR8h9lbScQXe2OpqBCA-->
 
-    <!-- OnePlus<string name="API_KEY">AIzaSyDkT6PCDa-kjdwgXU527kF01z8tEFyUWd8</string>-->
-    <string name="API_KEY">AIzaSyCauSR8TV8xoJowOvhpPSsb-ET6g7K2nsc</string>
+    <!-- OnePlus--><string name="API_KEY">AIzaSyDkT6PCDa-kjdwgXU527kF01z8tEFyUWd8</string>
+    <!-- <string name="API_KEY">AIzaSyCauSR8TV8xoJowOvhpPSsb-ET6g7K2nsc</string>-->
 
     <!-- Used for Places API (Itinerary) -->
     <string name="API_KEY_SERVER">AIzaSyA0PKeHgfGshCobEC7q0mDADXWL0Ns5nlE</string>
