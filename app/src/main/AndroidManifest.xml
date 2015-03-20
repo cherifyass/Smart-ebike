@@ -70,7 +70,12 @@
         </activity>
         <activity
             android:name=".Historique"
-            android:label="@string/title_activity_historique" >
+            android:label="@string/title_activity_historique" 
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
         </activity>
     </application>
 
