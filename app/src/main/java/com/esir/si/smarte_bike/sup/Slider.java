@@ -1,4 +1,4 @@
-package com.esir.si.smarte_bike;
+package com.esir.si.smarte_bike.sup;
 
 /**
  * Created by Quentin on 04/03/2015.

@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 
+import com.esir.si.smarte_bike.sup.MyPagerAdapter;
 import com.esir.si.smarte_bike.navigation.Itineraire;
 import com.esir.si.smarte_bike.navigation.Navigation;
 
