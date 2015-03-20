@@ -17,7 +17,12 @@ import com.esir.si.smarte_bike.navigation.Navigation;
 import java.util.List;
 import java.util.Vector;
 
-
+/**
+ * Activité principale comprenant les fragments :
+ *      + Donnees
+ *      + Accueil
+ *      + Navigation
+ */
 public class MainActivity extends FragmentActivity {
 
     private PagerAdapter mPagerAdapter;
@@ -53,7 +58,7 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    public void goTo(View view){
+    public void seConnecter(View view){
         Intent intent = new Intent(this, Connexion.class);
         startActivity(intent);
     }
