@@ -83,50 +83,56 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
 
     public void computeItinerary(View view){
 
-
-
-
         String origin = autoCompDepart.getText().toString(); //departure
         String destination = autoCompArrivee.getText().toString(); //arrival
 
-        if(cb_maposition.isChecked()){
-            LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-            String provider = locationManager.getBestProvider(new Criteria(), true);
-            Location location = locationManager.getLastKnownLocation(provider);
-            origin = location.getLatitude() + "," + location.getLongitude();
+        if("".equals(origin.trim())) {
+            Toast.makeText(Itineraire.this, "Merci de saisir un lieu de départ", Toast.LENGTH_SHORT).show();
         }
-        // TODO: Popup fields empty
-        if( ((origin == null) || (origin == "")) && ((destination == null) || (destination == ""))){
-            Log.d("Error", "Fields empty");
-            return;
+        else if("".equals(destination.trim())) {
+            Toast.makeText(Itineraire.this, "Merci de saisir un lieu d'arrivée", Toast.LENGTH_SHORT).show();
         }
+        else {
 
-        try {
-            String API_KEY = this.getString(R.string.API_KEY_SERVER);
-            String mode = "bicycling";
-            String region = "fr";
-            String language = "fr";
-            String key = API_KEY;
-            String o = URLEncoder.encode(origin,"utf-8");
-            String d = URLEncoder.encode(destination,"utf-8");
+            if (cb_maposition.isChecked()) {
+                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                String provider = locationManager.getBestProvider(new Criteria(), true);
+                Location location = locationManager.getLastKnownLocation(provider);
+                origin = location.getLatitude() + "," + location.getLongitude();
+            }
+            // TODO: Popup fields empty
+            if (((origin == null) || (origin == "")) && ((destination == null) || (destination == ""))) {
+                Log.d("Error", "Fields empty");
+                return;
+            }
 
-            String url = "https://maps.googleapis.com/maps/api/directions/json?"
-                + "origin=" + o
-                + "&destination=" + d
-                + "&region=" + region
-                + "&language=" + language
-                + "&sensor=false&units=metric&mode="+ mode +"&alternatives=true"
-                + "&key=" + key;
+            try {
+                String API_KEY = this.getString(R.string.API_KEY_SERVER);
+                String mode = "bicycling";
+                String region = "fr";
+                String language = "fr";
+                String key = API_KEY;
+                String o = URLEncoder.encode(origin, "utf-8");
+                String d = URLEncoder.encode(destination, "utf-8");
 
-            Log.d("URL", url);
-            Log.d("Departure", origin);
-            Log.d("Arrival", destination);
+                String url = "https://maps.googleapis.com/maps/api/directions/json?"
+                        + "origin=" + o
+                        + "&destination=" + d
+                        + "&region=" + region
+                        + "&language=" + language
+                        + "&sensor=false&units=metric&mode=" + mode + "&alternatives=true"
+                        + "&key=" + key;
 
-            //routes = new RequestAPITask(this,this.findViewById(android.R.id.content)).execute(url).get();
-            new RequestAPITask(this,this.findViewById(android.R.id.content)).execute(url);
+                Log.d("URL", url);
+                Log.d("Departure", origin);
+                Log.d("Arrival", destination);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                //routes = new RequestAPITask(this,this.findViewById(android.R.id.content)).execute(url).get();
+                new RequestAPITask(this, this.findViewById(android.R.id.content)).execute(url);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

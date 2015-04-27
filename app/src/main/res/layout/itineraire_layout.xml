@@ -31,7 +31,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/auto_comp_tv_depart"
             android:id="@+id/auto_comp_tv_depart"
-            android:completionThreshold="2" />
+            android:completionThreshold="2"
+            android:singleLine="true"
+            android:imeOptions="actionNext" />
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -62,7 +64,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/auto_comp_tv_arrivee"
-            android:id="@+id/auto_comp_tv_arrivee"/>
+            android:id="@+id/auto_comp_tv_arrivee"
+            android:singleLine="true"
+            android:imeOptions="actionDone"/>
 
         </LinearLayout>
 
@@ -91,6 +95,7 @@
         <Button
             android:layout_width="197dp"
             android:layout_height="wrap_content"
+            style="@style/bouton"
             android:text="@string/btn_go"
             android:id="@+id/btn_go"
             android:onClick="computeItinerary"
@@ -141,6 +146,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/bouton"
             android:text="@string/btn_start_itinerary"
             android:id="@+id/btn_start_itinerary"
             android:layout_below="@+id/label_duration"
