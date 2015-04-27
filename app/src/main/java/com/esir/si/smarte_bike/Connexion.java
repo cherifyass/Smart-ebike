@@ -78,44 +78,15 @@ public class Connexion extends ActionBarActivity {
 
     public void seConnecter(View view){
 
+        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
+
         //Activation du bluetooth
         if (!bluetoothAdapter.isEnabled()) {
             Intent enableBlueTooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBlueTooth, REQUEST_CODE_ENABLE_BLUETOOTH);
         }
 
-        devices = bluetoothAdapter.getBondedDevices();
-        for (BluetoothDevice device : devices) {
-            Toast.makeText(this, "Device = " + device.getName() + device.getUuids(), Toast.LENGTH_SHORT).show();
-        }
-
-        //Association avec le module
-        BluetoothDevice[] pairedDevices = (BluetoothDevice[]) devices.toArray(new BluetoothDevice[devices.size()]);
-
-        // On parcours la liste pour trouver notre module bluetooth
-        for(int i=0;i<pairedDevices.length;i++)
-        {
-
-
-            // On teste si ce périphérique contient le nom du module bluetooth connecté au microcontrôleur
-            if(pairedDevices[i].getName().contains("Nexus 5")) {
-                Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
-                device = pairedDevices[i];
-                try {
-                    Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
-
-                    // On récupère le socket de notre périphérique
-                    socket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
-
-                    receiveStream = socket.getInputStream();// Canal de réception (valide uniquement après la connexion)
-                    sendStream = socket.getOutputStream();// Canal d'émission (valide uniquement après la connexion)
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-        }
+        
 
     }
 

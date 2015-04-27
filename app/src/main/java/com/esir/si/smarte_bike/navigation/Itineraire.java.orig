@@ -82,7 +82,10 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
     }
 
     public void computeItinerary(View view){
+<<<<<<< HEAD
+=======
 
+>>>>>>> 781341c1b5f29340b3c276febc2d2b52ccdf78d3
         String origin = autoCompDepart.getText().toString(); //departure
         String destination = autoCompArrivee.getText().toString(); //arrival
 
