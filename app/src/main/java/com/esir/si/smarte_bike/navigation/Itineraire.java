@@ -82,10 +82,6 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
     }
 
     public void computeItinerary(View view){
-
-
-
-
         String origin = autoCompDepart.getText().toString(); //departure
         String destination = autoCompArrivee.getText().toString(); //arrival
 
@@ -134,13 +130,8 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
         RelativeLayout box_result = (RelativeLayout) this.findViewById(R.id.box_result_itinerary);
         box_result.setVisibility(View.GONE);
 
-
-        Navigation.drawRoute(routes);
-
         Intent i = new Intent(Itineraire.this,MainActivity.class);
         startActivity(i);
-
-
     }
 
     public List<Route> getRoutes(){

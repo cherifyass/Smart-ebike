@@ -10,9 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 
+import com.esir.si.smarte_bike.navigation.Map;
 import com.esir.si.smarte_bike.sup.MyPagerAdapter;
 import com.esir.si.smarte_bike.navigation.Itineraire;
-import com.esir.si.smarte_bike.navigation.Navigation;
 
 import java.util.List;
 import java.util.Vector;
@@ -21,7 +21,7 @@ import java.util.Vector;
  * Activité principale comprenant les fragments :
  *      + Donnees
  *      + Accueil
- *      + Navigation
+ *      + Map
  */
 public class MainActivity extends FragmentActivity {
 
@@ -45,7 +45,7 @@ public class MainActivity extends FragmentActivity {
         // Ajout des Fragments dans la liste
         fragments.add(android.support.v4.app.Fragment.instantiate(this, Donnees.class.getName()));
         fragments.add(android.support.v4.app.Fragment.instantiate(this, Accueil.class.getName()));
-        fragments.add(android.support.v4.app.Fragment.instantiate(this, Navigation.class.getName()));
+        fragments.add(android.support.v4.app.Fragment.instantiate(this, Map.class.getName()));
 
         // Création de l'adapter qui s'occupera de l'affichage de la liste de
         // Fragments
@@ -56,22 +56,22 @@ public class MainActivity extends FragmentActivity {
         //On fixe la page de début (page d'accueil)
         pager.setCurrentItem(1);
 
-
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intent = getIntent();
-        if(intent != null){
-            int numFragm = intent.getIntExtra("numFragm",1); //TODO
-            pager.setCurrentItem(numFragm,false);
-        }
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
     }
 
     public void seConnecter(View view){

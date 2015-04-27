@@ -56,6 +56,9 @@
     <string name="label_duration">Durée: </string>s
     <string name="btn_start_itinerary">Commencer la navigation !</string>
 
+    <!-- Navigation activity -->
+    <string name="title_activity_navigation">Navigation</string>
+
     <!-- Historique -->
     <string name="détails">voir</string>
     <string name="arrivée">Arrivée</string>
