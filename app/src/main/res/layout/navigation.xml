@@ -48,6 +48,7 @@
         android:id="@+id/btn_itinerary"
         android:layout_below="@+id/tvfollow"
         android:layout_alignParentStart="true"
-        android:onClick="newItinerary"/>
+        android:onClick="newItinerary"
+        tools:ignore="RtlCompat" />
 
 </RelativeLayout>
