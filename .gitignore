@@ -6,3 +6,7 @@ local.properties
 .idea/
 build/
 app.iml
+.idea/gradle.xml
+.idea/modules.xml
+app/app.iml
+app/build.gradle
