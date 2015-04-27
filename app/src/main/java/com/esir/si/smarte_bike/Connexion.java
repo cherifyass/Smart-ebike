@@ -2,11 +2,13 @@ package com.esir.si.smarte_bike;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,14 +33,13 @@ public class Connexion extends ActionBarActivity {
     private TextView message = null;
 
     private static int REQUEST_CODE_ENABLE_BLUETOOTH = 0;
+    private static final long SCAN_PERIOD = 10000;
 
-    BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    private Set<BluetoothDevice> devices;
-    private BluetoothDevice device = null;// le périphérique (le module bluetooth)
-    private BluetoothSocket socket = null;
-    private InputStream receiveStream = null;// Canal de réception
-    private OutputStream sendStream = null;// Canal d'émission
-
+    final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+    BluetoothAdapter mBluetoothAdapter = bluetoothManager.getAdapter();
+    
+    private boolean mScanning;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class Connexion extends ActionBarActivity {
 
     //Recherche de la techno
     public void bluetoothExiste(){
-        if (bluetoothAdapter == null)
+        if (mBluetoothAdapter == null)
             Toast.makeText(this, "Pas de Bluetooth",
                     Toast.LENGTH_SHORT).show();
         else
@@ -81,12 +82,31 @@ public class Connexion extends ActionBarActivity {
         Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
 
         //Activation du bluetooth
-        if (!bluetoothAdapter.isEnabled()) {
+        if (!mBluetoothAdapter.isEnabled()) {
             Intent enableBlueTooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBlueTooth, REQUEST_CODE_ENABLE_BLUETOOTH);
         }
 
-        
+
+    }
+
+    private void scanLeDevice(final boolean enable) {
+        if (enable) {
+            // Stops scanning after a pre-defined scan period.
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mScanning = false;
+                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
+                }
+            }, SCAN_PERIOD);
+
+            mScanning = true;
+            mBluetoothAdapter.startLeScan(mLeScanCallback);
+        } else {
+            mScanning = false;
+            mBluetoothAdapter.stopLeScan(mLeScanCallback);
+        }
 
     }
 
