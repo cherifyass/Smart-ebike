@@ -27,6 +27,8 @@ public class MainActivity extends FragmentActivity {
 
     private PagerAdapter mPagerAdapter;
 
+    private ViewPager pager;
+
     public static FragmentManager fragmentManager;
 
     @Override
@@ -48,7 +50,7 @@ public class MainActivity extends FragmentActivity {
         // Création de l'adapter qui s'occupera de l'affichage de la liste de
         // Fragments
         this.mPagerAdapter = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
-        ViewPager pager = (ViewPager) super.findViewById(R.id.viewpager);
+        pager = (ViewPager) super.findViewById(R.id.viewpager);
         // Affectation de l'adapter au ViewPager
         pager.setAdapter(this.mPagerAdapter);
         //On fixe la page de début (page d'accueil)
@@ -57,6 +59,20 @@ public class MainActivity extends FragmentActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        if(intent != null){
+            int numFragm = intent.getIntExtra("numFragm",1); //TODO
+            pager.setCurrentItem(numFragm,false);
+        }
+    }
 
     public void seConnecter(View view){
         Intent intent = new Intent(this, Connexion.class);

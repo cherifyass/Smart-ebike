@@ -6,7 +6,7 @@ package com.esir.si.smarte_bike.navigation;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -14,23 +14,28 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.esir.si.smarte_bike.Connexion;
 import com.esir.si.smarte_bike.R;
+import com.esir.si.smarte_bike.navigation.direction.Route;
+import com.esir.si.smarte_bike.navigation.direction.Step;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.PolylineOptions;
+
+import java.util.List;
 
 public class Navigation extends Fragment {
 
-    private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private static GoogleMap mMap; // Might be null if Google Play services APK is not available.
 
     private boolean update = false; // Update position
 
@@ -71,7 +76,8 @@ public class Navigation extends Fragment {
         if(container == null){
             return null;
         }
-
+        Log.d("onCreateViewNavigation","");
+        super.onCreateView(inflater,container,savedInstanceState);
         View view_map = (RelativeLayout) inflater.inflate(R.layout.navigation, container, false);
 
         return view_map;
@@ -80,6 +86,7 @@ public class Navigation extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d("onViewCreatedNavigation", "");
 
         mv = (MapView) getView().findViewById(R.id.map);
         mv.onCreate(savedInstanceState);
@@ -92,8 +99,9 @@ public class Navigation extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
+        Log.d("onResumeNavigation","");
         mv.onResume();
+        super.onResume();
 
         startLocalisation();
         setUpMap();
@@ -101,10 +109,24 @@ public class Navigation extends Fragment {
 
     @Override
     public void onPause(){
+        Log.d("onPauseNavigation","");
+
         super.onPause();
         mv.onPause();
 
         stopLocalisation();
+    }
+
+    @Override
+    public void onStart() {
+        Log.d("onStartNavigation","");
+        super.onStart();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        Log.d("onCreateNavigation","");
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -187,6 +209,20 @@ public class Navigation extends Fragment {
         locationManager.removeUpdates(locationListener);
         tvFollow.setText("Not Following");
         update = false;
+    }
+
+    public static void drawRoute(List<Route> routes){
+        Log.d("DrawRoute","draw route : " + routes);
+        PolylineOptions polylineOptions = new PolylineOptions();
+
+        List<Step> steps = routes.get(0).getLegs().get(0).getSteps();
+
+        for(int i=0; i<steps.size(); i++){
+            polylineOptions.addAll(steps.get(i).getPoints());
+        }
+        polylineOptions.color(Color.BLUE);
+        polylineOptions.width(2);
+        mMap.addPolyline(polylineOptions);
     }
 
 }

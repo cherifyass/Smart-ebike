@@ -75,6 +75,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+<<<<<<< HEAD
         </activity>
         <activity
             android:name=".Details"
@@ -83,6 +84,8 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Details" />
+=======
+>>>>>>> cc6de09116bd61f29ecf8e0dc517e3ec73327674
         </activity>
     </application>
 

@@ -47,10 +47,14 @@
     <!-- Itineraire -->
     <string name="tv_depart">Départ</string>
     <string name="auto_comp_tv_depart">Départ</string>
+    <string name="cb_myposition">Ma position</string>
     <string name="tv_arrivee">Arrivée</string>
     <string name="auto_comp_tv_arrivee">Arrivée</string>
     <string name="cb_assistance">Activer l\'assitance</string>
     <string name="btn_go">Calculer itinéraire</string>
+    <string name="label_distance">Distance: </string>
+    <string name="label_duration">Durée: </string>s
+    <string name="btn_start_itinerary">Commencer la navigation !</string>
 
     <!-- Historique -->
     <string name="détails">voir</string>

@@ -31,7 +31,15 @@
             android:layout_height="wrap_content"
             android:hint="@string/auto_comp_tv_depart"
             android:id="@+id/auto_comp_tv_depart"
-            android:completionThreshold="3" />
+            android:completionThreshold="2" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cb_myposition"
+            android:id="@+id/cb_myposition"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true" />
 
     </LinearLayout>
 
@@ -45,7 +53,7 @@
             android:text="@string/tv_arrivee"
             android:id="@+id/tv_arrivee"
             android:gravity="center"
-            android:completionThreshold="3"
+            android:completionThreshold="2"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textStyle="bold" />
@@ -62,8 +70,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_weight="0.07">
+        android:layout_marginTop="20dp">
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -75,13 +82,71 @@
 
     </RelativeLayout>
 
-    <Button
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_go"
-        android:id="@+id/btn_go"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="right" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/cb_assistance">
+
+        <Button
+            android:layout_width="197dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_go"
+            android:id="@+id/btn_go"
+            android:onClick="computeItinerary"
+            android:layout_gravity="right"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="142dp"
+        android:layout_marginTop="50dp"
+        android:id="@+id/box_result_itinerary"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_distance"
+            android:id="@+id/label_distance"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_duration"
+            android:id="@+id/label_duration"
+            android:layout_alignTop="@+id/value_duration"
+            android:layout_alignEnd="@+id/label_distance" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/value_distance"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/value_duration" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/value_duration"
+            android:layout_marginStart="19dp"
+            android:layout_below="@+id/value_distance"
+            android:layout_toEndOf="@+id/label_distance"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_start_itinerary"
+            android:id="@+id/btn_start_itinerary"
+            android:layout_below="@+id/label_duration"
+            android:layout_toEndOf="@+id/label_duration"
+            android:nestedScrollingEnabled="false"
+            android:onClick="startNavigation" />
+    </RelativeLayout>
 
 </LinearLayout>
