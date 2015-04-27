@@ -6,6 +6,12 @@
 /build
 /.idea/modules.xml
 *.iml
+.idea/
+build/
+app.iml
+.idea/gradle.xml
+.idea/modules.xml
+app/app.iml
 **/*.iml
 smart_e_bike.iml
 .idea/dictionaries/Quentin.xml

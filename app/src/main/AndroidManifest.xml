@@ -17,8 +17,13 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="fr.rolandl.blog_gps.permission.MAPS_RECEIVE" />
+
+    <!-- Utilisation du BLE -->
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -75,7 +80,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
-
         </activity>
         <activity
             android:name=".Details"
@@ -84,7 +88,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Details" />
-
         </activity>
     </application>
 
