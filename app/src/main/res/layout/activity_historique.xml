@@ -63,7 +63,7 @@
                 android:gravity="center"
                 android:text="->"
                 android:textColor="#FFF"
-                android:textSize="40dp"
+                android:textSize="20dp"
                 android:background="@drawable/mybutton"
                 android:onClick="goToDetails"/>
         </TableRow>
@@ -90,7 +90,7 @@
                 android:gravity="center"
                 android:text="->"
                 android:textColor="#FFF"
-                android:textSize="40dp"
+                android:textSize="20dp"
                 android:background="@drawable/mybutton"
                 android:onClick="goToDetails"/>
         </TableRow>
