@@ -1,7 +1,10 @@
-.gradle/
-local.properties
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
 .DS_Store
-*/build/
+/build
+/.idea/modules.xml
 *.iml
 .idea/
 build/
@@ -9,4 +12,9 @@ app.iml
 .idea/gradle.xml
 .idea/modules.xml
 app/app.iml
-app/build.gradle
+**/*.iml
+smart_e_bike.iml
+.idea/dictionaries/Quentin.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/dictionaries/Loann.xml
