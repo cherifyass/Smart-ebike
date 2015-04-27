@@ -33,13 +33,14 @@
 
     </RelativeLayout>
 
-
+    <!-- Meteo -->
     <Button
         android:id="@+id/boutonMeteo"
         style="@style/bouton"
         android:layout_width="fill_parent"
         android:layout_height="30dp"
         android:text="@string/meteo" />
+
 
     <RelativeLayout
         android:id="@+id/contenuMeteo"
@@ -49,11 +50,104 @@
         android:visibility="gone">
 
         <TextView
-            android:layout_width="fill_parent"
+            android:id="@+id/cityText"
+            style="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lorem" />
+            android:layout_centerHorizontal="true" />
+
+        <RelativeLayout
+            android:id="@+id/icon_descr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cityText"
+            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="17dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/condIcon"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+            <TextView
+                android:id="@+id/condDescr"
+                style="?android:attr/textAppearanceMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/condIcon" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/temp"
+            style="@style/tempStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cityText"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"
+            android:layout_toRightOf="@id/icon_descr"
+            android:layout_toEndOf="@id/icon_descr"/>
+
+        <TextView
+            android:id="@+id/humLab"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/temp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:id="@+id/hum"
+            style="@style/valData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/humLab"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@id/humLab"
+            android:layout_toEndOf="@id/humLab"/>
+
+        <TextView
+            android:id="@+id/windLab"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/humLab"
+            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp"/>
+
+        <TextView
+            android:id="@+id/windSpeed"
+            style="@style/valData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/windLab"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toRightOf="@id/windLab"
+            android:layout_toEndOf="@id/windLab"/>
+
+        <Button
+            android:id="@+id/refreshButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/windLab"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/ic_action_refresh1"
+            android:drawableStart="@drawable/ic_action_refresh1"
+            android:text="Actualiser"
+            android:textStyle="bold" />
 
     </RelativeLayout>
+    <!-- End Meteo -->
 
     <Button
         android:id="@+id/boutonSante"
