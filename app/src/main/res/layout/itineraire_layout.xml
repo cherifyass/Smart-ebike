@@ -95,6 +95,7 @@
         <Button
             android:layout_width="197dp"
             android:layout_height="wrap_content"
+            style="@style/bouton"
             android:text="@string/btn_go"
             android:id="@+id/btn_go"
             android:onClick="computeItinerary"
@@ -145,6 +146,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/bouton"
             android:text="@string/btn_start_itinerary"
             android:id="@+id/btn_start_itinerary"
             android:layout_below="@+id/label_duration"

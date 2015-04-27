@@ -83,18 +83,16 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
 
     public void computeItinerary(View view){
 
+        String origin = autoCompDepart.getText().toString(); //departure
+        String destination = autoCompArrivee.getText().toString(); //arrival
 
-        if("".equals(autoCompDepart.getText().toString().trim())) {
+        if("".equals(origin.trim())) {
             Toast.makeText(Itineraire.this, "Merci de saisir un lieu de départ", Toast.LENGTH_SHORT).show();
         }
-        else if("".equals(autoCompArrivee.getText().toString().trim())) {
+        else if("".equals(destination.trim())) {
             Toast.makeText(Itineraire.this, "Merci de saisir un lieu d'arrivée", Toast.LENGTH_SHORT).show();
         }
         else {
-
-
-            String origin = autoCompDepart.getText().toString(); //departure
-            String destination = autoCompArrivee.getText().toString(); //arrival
 
             if (cb_maposition.isChecked()) {
                 LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
