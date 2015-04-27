@@ -39,7 +39,7 @@
     </style>
     <style name="boutonDetails">
         <item name="android:layout_gravity">center_horizontal</item>
-        <item name="android:layout_height">"30dp"</item>
+        <item name="android:layout_height">30dp</item>
         <item name="android:gravity">center</item>
         <item name="android:text">-></item>
         <item name="android:textColor">#FFF</item>
