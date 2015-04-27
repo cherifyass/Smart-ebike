@@ -2,6 +2,7 @@ package com.esir.si.smarte_bike.navigation.direction;
 
 import android.content.Context;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ public class Route implements Serializable {
     private Bound bounds;
     private String copyrights;
     private List<Leg> legs;
-    private Polyline overviewPolyLine;
+    private List<LatLng> overviewPolyLine;
     private String summary;
 
     public Route() {
@@ -49,11 +50,11 @@ public class Route implements Serializable {
         this.legs.add(leg);
     }
 
-    public Polyline getOverviewPolyLine() {
+    public List<LatLng> getOverviewPolyLine() {
         return overviewPolyLine;
     }
 
-    public void setOverviewPolyLine(Polyline overviewPolyLine) {
+    public void setOverviewPolyLine(List<LatLng> overviewPolyLine) {
         this.overviewPolyLine = overviewPolyLine;
     }
 

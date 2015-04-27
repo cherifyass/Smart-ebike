@@ -2,6 +2,7 @@ package com.esir.si.smarte_bike.navigation.direction;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +11,10 @@ import android.widget.TextView;
 
 import com.esir.si.smarte_bike.R;
 import com.esir.si.smarte_bike.navigation.Itineraire;
+import com.esir.si.smarte_bike.navigation.Navigation;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +34,6 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
 
     private Context mycontext;
     private View myview;
-    private RelativeLayout box_result;
     private ProgressDialog progressDialog;
 
     public RequestAPITask(Context c, View v){
@@ -41,7 +44,6 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        box_result = (RelativeLayout) myview.findViewById(R.id.box_result_itinerary);
 
         // create progressDialog
         progressDialog = new ProgressDialog(mycontext);
@@ -90,14 +92,13 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
             sb.append("</br>");
             Log.d("ITINERAIRE", ">>>>>> " + steps.get(i).getHtmlInstructions());
         }
-        // set info values
-        TextView distance = (TextView) myview.findViewById(R.id.value_distance);
-        distance.setText(routes.get(0).getLegs().get(0).getDistance().getText());
-        TextView duration = (TextView) myview.findViewById(R.id.value_duration);
-        duration.setText(routes.get(0).getLegs().get(0).getDuration().getText());
 
-        // show boxresult
-        box_result.setVisibility(View.VISIBLE);
+        // set routes
+        ((Itineraire) mycontext).setRoutes(routes);
+
+        // start navigation activity
+        Intent intent = new Intent(mycontext,Navigation.class);
+        mycontext.startActivity(intent);
     }
 
     private String convertStreamToString(final InputStream input) throws Exception {
@@ -123,6 +124,7 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
     // PARSE JSON ITINERARY
     String ROUTES = "routes";
     String SUMMARY = "summary";
+    String OVERVIEW_POLYLINES = "overview_polyline";
     String LEGS = "legs";
     String STEPS = "steps";
     String DISTANCE = "distance";
@@ -149,6 +151,7 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
                 routesJSONObject = routeJSONArray.getJSONObject(m);
                 JSONArray legsJSONArray;
                 route.setSummary(routesJSONObject.getString(SUMMARY));
+                //route.setOverviewPolyLine((decodePolyLines(routesJSONObject.getString(OVERVIEW_POLYLINES))));
                 legsJSONArray = routesJSONObject.getJSONArray(LEGS);
                 JSONObject legJSONObject;
                 Leg leg;
