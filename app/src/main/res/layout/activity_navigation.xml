@@ -8,5 +8,128 @@
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.MapFragment"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#ff1f8fe5"
+        android:id="@+id/nav_top_bar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_departure"
+            android:id="@+id/label_departure"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="30px"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_arrival"
+            android:id="@+id/label_arrival"
+            android:textSize="30px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/value_departure"
+            android:textColor="#ffffffff"
+            android:text=""
+            android:layout_alignBaseline="@+id/label_departure"
+            android:layout_alignBottom="@+id/label_departure"
+            android:layout_toRightOf="@+id/label_arrival"
+            android:layout_toEndOf="@+id/label_arrival"
+            android:textSize="30px" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/value_arrival"
+            android:textColor="#ffffffff"
+            android:layout_alignTop="@+id/label_arrival"
+            android:layout_toRightOf="@+id/label_arrival"
+            android:layout_toEndOf="@+id/label_arrival"
+            android:textSize="30px"
+            android:text="" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nav_btn_stop"
+            android:src="@drawable/ic_close_white_36dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"
+            android:onClick="stopNavigation"
+            android:nestedScrollingEnabled="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/nav_bottom_bar"
+        android:background="#ff1f8fe5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/value_duration"
+            android:textColor="#ffffffff"
+            android:textSize="50px"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:textIsSelectable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/value_distance"
+            android:textSize="40px"
+            android:layout_alignBottom="@+id/value_duration"
+            android:layout_toRightOf="@+id/value_duration"
+            android:layout_toEndOf="@+id/value_duration"
+            android:paddingBottom="2dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_start_nav"
+            android:id="@+id/nav_btn_start"
+            android:drawableRight="@drawable/ic_chevron_right_white_36dp"
+
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="50px"
+            android:textAllCaps="false"
+            android:textColor="#ffffffff"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="startNavigation"
+            android:paddingLeft="10dp" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

@@ -2,7 +2,6 @@ package com.esir.si.smarte_bike.navigation;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -15,10 +14,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.esir.si.smarte_bike.MainActivity;
 import com.esir.si.smarte_bike.R;
 import com.esir.si.smarte_bike.navigation.autocomplete.PlacesAutoCompleteAdapter;
 import com.esir.si.smarte_bike.navigation.direction.RequestAPITask;
