@@ -36,8 +36,8 @@ public class Connexion extends ActionBarActivity {
     private static final long SCAN_PERIOD = 10000;
 
     final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-    BluetoothAdapter mBluetoothAdapter = bluetoothManager.getAdapter();
-    
+    //BluetoothAdapter mBluetoothAdapter = bluetoothManager.getAdapter();
+
     private boolean mScanning;
     private Handler mHandler;
 
@@ -90,25 +90,7 @@ public class Connexion extends ActionBarActivity {
 
     }
 
-    private void scanLeDevice(final boolean enable) {
-        if (enable) {
-            // Stops scanning after a pre-defined scan period.
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mScanning = false;
-                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
-                }
-            }, SCAN_PERIOD);
 
-            mScanning = true;
-            mBluetoothAdapter.startLeScan(mLeScanCallback);
-        } else {
-            mScanning = false;
-            mBluetoothAdapter.stopLeScan(mLeScanCallback);
-        }
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
