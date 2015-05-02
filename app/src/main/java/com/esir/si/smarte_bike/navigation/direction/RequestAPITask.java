@@ -99,6 +99,7 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
         intent.putExtra("DISTANCE",leg.getDistance().getText());
         intent.putExtra("DURATION",leg.getDuration().getText());
         mycontext.startActivity(intent);
+        ((Itineraire) mycontext).finish();
     }
 
     private String convertStreamToString(final InputStream input) throws Exception {
@@ -158,7 +159,7 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
                 JSONObject southwestJSONOBJECT = boundsJSONOBJECT.getJSONObject("southwest");
                 Bound bound = new Bound();
                 bound.setNorthEast(new LatLng(northeastJSONOBJECT.getDouble(LATITUDE),northeastJSONOBJECT.getDouble(LONGITUDE)));
-                bound.setSouthWest(new LatLng(southwestJSONOBJECT.getDouble(LATITUDE),southwestJSONOBJECT.getDouble(LONGITUDE)));
+                bound.setSouthWest(new LatLng(southwestJSONOBJECT.getDouble(LATITUDE), southwestJSONOBJECT.getDouble(LONGITUDE)));
                 route.setBounds(bound);
 
                 JSONArray legsJSONArray;

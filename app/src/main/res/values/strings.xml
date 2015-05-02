@@ -64,6 +64,8 @@
     <string name="label_arrival">Arrivée</string>
     <string name="label_stop_nav">Annuler la navigation</string>
     <string name="label_start_nav">Commencer</string>
+    <string name="value_speed">0 km/h</string>
+    <string name="value_arriving_time">00h00</string>
 
     <!-- Historique -->
     <string name="détails">voir</string>
