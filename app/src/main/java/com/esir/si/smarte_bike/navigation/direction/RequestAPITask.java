@@ -2,14 +2,13 @@ package com.esir.si.smarte_bike.navigation.direction;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.esir.si.smarte_bike.R;
 import com.esir.si.smarte_bike.navigation.Itineraire;
+import com.esir.si.smarte_bike.navigation.Navigation;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -30,7 +29,6 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
 
     private Context mycontext;
     private View myview;
-    private RelativeLayout box_result;
     private ProgressDialog progressDialog;
 
     public RequestAPITask(Context c, View v){
@@ -41,7 +39,6 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        box_result = (RelativeLayout) myview.findViewById(R.id.box_result_itinerary);
 
         // create progressDialog
         progressDialog = new ProgressDialog(mycontext);
@@ -90,14 +87,19 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
             sb.append("</br>");
             Log.d("ITINERAIRE", ">>>>>> " + steps.get(i).getHtmlInstructions());
         }
-        // set info values
-        TextView distance = (TextView) myview.findViewById(R.id.value_distance);
-        distance.setText(routes.get(0).getLegs().get(0).getDistance().getText());
-        TextView duration = (TextView) myview.findViewById(R.id.value_duration);
-        duration.setText(routes.get(0).getLegs().get(0).getDuration().getText());
 
-        // show boxresult
-        box_result.setVisibility(View.VISIBLE);
+        // set routes
+        ((Itineraire) mycontext).setRoutes(routes);
+
+        // start navigation activity
+        Intent intent = new Intent(mycontext,Navigation.class);
+        Leg leg = routes.get(0).getLegs().get(0); // first leg
+        intent.putExtra("START_ADDRESS",leg.getStartAddress());
+        intent.putExtra("END_ADDRESS",leg.getEndAddress());
+        intent.putExtra("DISTANCE",leg.getDistance().getText());
+        intent.putExtra("DURATION",leg.getDuration().getText());
+        mycontext.startActivity(intent);
+        ((Itineraire) mycontext).finish();
     }
 
     private String convertStreamToString(final InputStream input) throws Exception {
@@ -124,6 +126,7 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
     String ROUTES = "routes";
     String SUMMARY = "summary";
     String LEGS = "legs";
+    String BOUNDS = "bounds";
     String STEPS = "steps";
     String DISTANCE = "distance";
     String TEXT = "text";
@@ -131,6 +134,8 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
     String VALUE = "value";
     String END_LOCATION = "end_location";
     String START_LOCATION = "start_location";
+    String END_ADDRESS = "end_address";
+    String START_ADDRESS = "start_address";
     String LATITUDE = "lat";
     String LONGITUDE = "lng";
     String POLYLINE = "polyline";
@@ -147,15 +152,46 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
             for (int m = 0; m < routeJSONArray.length(); m++) {
                 route = new Route(/*context*/);
                 routesJSONObject = routeJSONArray.getJSONObject(m);
+
+                // bounds
+                JSONObject boundsJSONOBJECT = routesJSONObject.getJSONObject(BOUNDS);
+                JSONObject northeastJSONOBJECT = boundsJSONOBJECT.getJSONObject("northeast");
+                JSONObject southwestJSONOBJECT = boundsJSONOBJECT.getJSONObject("southwest");
+                Bound bound = new Bound();
+                bound.setNorthEast(new LatLng(northeastJSONOBJECT.getDouble(LATITUDE),northeastJSONOBJECT.getDouble(LONGITUDE)));
+                bound.setSouthWest(new LatLng(southwestJSONOBJECT.getDouble(LATITUDE), southwestJSONOBJECT.getDouble(LONGITUDE)));
+                route.setBounds(bound);
+
                 JSONArray legsJSONArray;
                 route.setSummary(routesJSONObject.getString(SUMMARY));
                 legsJSONArray = routesJSONObject.getJSONArray(LEGS);
                 JSONObject legJSONObject;
                 Leg leg;
                 JSONArray stepsJSONArray;
+
+
+                JSONObject legStartLocationJSONObject;
+                LatLng legStartLocationLatLng;
+                JSONObject legEndLocationJSONObject;
+                LatLng legEndLocationLatLng;
+
                 for (int b = 0; b < legsJSONArray.length(); b++) {
                     leg = new Leg();
                     legJSONObject = legsJSONArray.getJSONObject(b);
+
+                    // start/end location
+                    legStartLocationJSONObject = legJSONObject.getJSONObject(START_LOCATION);
+                    legStartLocationLatLng = new LatLng(legStartLocationJSONObject.getDouble(LATITUDE), legStartLocationJSONObject.getDouble(LONGITUDE));
+                    leg.setStartLocation(legStartLocationLatLng);
+
+                    legEndLocationJSONObject = legJSONObject.getJSONObject(END_LOCATION);
+                    legEndLocationLatLng = new LatLng(legEndLocationJSONObject.getDouble(LATITUDE), legEndLocationJSONObject.getDouble(LONGITUDE));
+                    leg.setEndLocation(legEndLocationLatLng);
+
+                    // start/end address
+                    leg.setStartAddress(legJSONObject.getString(START_ADDRESS));
+                    leg.setEndAddress(legJSONObject.getString(END_ADDRESS));
+
                     leg.setDistance(new Distance(legJSONObject.optJSONObject(DISTANCE).optString(TEXT), legJSONObject.optJSONObject(DISTANCE).optLong(VALUE)));
                     leg.setDuration(new Duration(legJSONObject.optJSONObject(DURATION).optString(TEXT), legJSONObject.optJSONObject(DURATION).optLong(VALUE)));
                     stepsJSONArray = legJSONObject.getJSONArray(STEPS);

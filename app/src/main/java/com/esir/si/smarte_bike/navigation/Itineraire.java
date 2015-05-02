@@ -2,7 +2,6 @@ package com.esir.si.smarte_bike.navigation;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -15,10 +14,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.esir.si.smarte_bike.MainActivity;
 import com.esir.si.smarte_bike.R;
 import com.esir.si.smarte_bike.navigation.autocomplete.PlacesAutoCompleteAdapter;
 import com.esir.si.smarte_bike.navigation.direction.RequestAPITask;
@@ -32,7 +29,7 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
     private AutoCompleteTextView autoCompArrivee;
     private CheckBox cb_maposition;
 
-    private List<Route> routes = null;
+    private static List<Route> routes;
 
     public ProgressDialog progressDialog;
 
@@ -86,7 +83,7 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
         String origin = autoCompDepart.getText().toString(); //departure
         String destination = autoCompArrivee.getText().toString(); //arrival
 
-        if("".equals(origin.trim())) {
+        if("".equals(origin.trim()) && !cb_maposition.isChecked()) {
             Toast.makeText(Itineraire.this, "Merci de saisir un lieu de départ", Toast.LENGTH_SHORT).show();
         }
         else if("".equals(destination.trim())) {
@@ -101,10 +98,10 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
                 origin = location.getLatitude() + "," + location.getLongitude();
             }
             // TODO: Popup fields empty
-            if (((origin == null) || (origin == "")) && ((destination == null) || (destination == ""))) {
+            /*if (((origin == null) || (origin == "")) || ((destination == null) || (destination == ""))) {
                 Log.d("Error", "Fields empty");
                 return;
-            }
+            }*/
 
             try {
                 String API_KEY = this.getString(R.string.API_KEY_SERVER);
@@ -136,24 +133,11 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
         }
     }
 
-    public void startNavigation(View view){
-        RelativeLayout box_result = (RelativeLayout) this.findViewById(R.id.box_result_itinerary);
-        box_result.setVisibility(View.GONE);
-
-
-        Navigation.drawRoute(routes);
-
-        Intent i = new Intent(Itineraire.this,MainActivity.class);
-        startActivity(i);
-
-
+    public static List<Route> getRoutes(){
+        return routes;
     }
 
-    public List<Route> getRoutes(){
-        return this.routes;
-    }
-
-    public void setRoutes(List<Route> r){
-        this.routes = r;
+    public static void setRoutes(List<Route> r){
+        routes = r;
     }
 }

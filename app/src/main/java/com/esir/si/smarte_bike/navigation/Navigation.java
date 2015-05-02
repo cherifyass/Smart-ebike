@@ -1,23 +1,14 @@
 package com.esir.si.smarte_bike.navigation;
 
-/**
- * Created by Quentin on 03/03/2015.
- */
-
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.text.Html;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,203 +17,257 @@ import com.esir.si.smarte_bike.navigation.direction.Route;
 import com.esir.si.smarte_bike.navigation.direction.Step;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
-public class Navigation extends Fragment {
+/**
+ * Created by Loann on 27/04/2015.
+ */
+public class Navigation extends Activity implements OnMapReadyCallback {
 
-    private static GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    private MapFragment mapFragment;
+    private GoogleMap map;
+    private Location location;
+    private Route route = null;
+    private Polyline polyline = null;
 
-    private boolean update = false; // Update position
+    private List<Step> steps_origin = null;
+    private LatLngBounds bounds = null;
 
-    // Define a listener that responds to location updates
-    private LocationListener locationListener = new LocationListener() {
+    private Marker start_marker = null;
+    private Marker end_marker = null;
 
-        public void onLocationChanged(Location location) {
-            // Called when a new location is found by the network location provider.
-            onLocationChangedActivity(location);
-        }
+    // UI
+    private RelativeLayout nav_bar_top = null;
+    private RelativeLayout nav_bar_bottom = null;
+    private RelativeLayout nav_bar_bottom_step = null;
+    private TextView value_departure = null;
+    private TextView value_arrival = null;
+    private TextView value_distance = null;
+    private TextView value_duration = null;
+    private TextView value_instruction = null;
+    private TextView value_speed = null;
+    private TextView value_arriving_time = null;
 
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
+    private ImageView nav_img_battery = null;
 
-        public void onProviderEnabled(String provider) {
-        }
+    private ImageButton arrowNext = null;
+    private ImageButton arrowPrevious = null;
 
-        public void onProviderDisabled(String provider) {
-        }
-    };
-
-    // Getting LocationManager object from System Service LOCATION_SERVICE
-    private LocationManager locationManager;
-
-    private FragmentActivity myContext;
-
-    private  MapView mv;
-
-    @Override
-    public void onAttach(Activity activity) {
-        myContext = (FragmentActivity) activity;
-        super.onAttach(activity);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        if(container == null){
-            return null;
-        }
-        Log.d("onCreateViewNavigation","");
-        super.onCreateView(inflater,container,savedInstanceState);
-        View view_map = (RelativeLayout) inflater.inflate(R.layout.navigation, container, false);
-
-        return view_map;
-    }
+    // step by step
+    private static int step = -1;
+    private static int maxStep = -1;
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Log.d("onViewCreatedNavigation", "");
-
-        mv = (MapView) getView().findViewById(R.id.map);
-        mv.onCreate(savedInstanceState);
-
-        MapsInitializer.initialize(getActivity().getApplicationContext());
-        mMap = mv.getMap();
-
-        setUpMap();
-    }
-
-    @Override
-    public void onResume() {
-        Log.d("onResumeNavigation","");
-        mv.onResume();
-        super.onResume();
-
-        startLocalisation();
-        setUpMap();
-    }
-
-    @Override
-    public void onPause(){
-        Log.d("onPauseNavigation","");
-
-        super.onPause();
-        mv.onPause();
-
-        stopLocalisation();
-    }
-
-    @Override
-    public void onStart() {
-        Log.d("onStartNavigation","");
-        super.onStart();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        Log.d("onCreateNavigation","");
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_navigation);
+
+        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_navigation);
+        mapFragment.getMapAsync(this);
+
+        value_departure = (TextView)(this.findViewById(R.id.value_departure));
+        value_arrival = (TextView)(this.findViewById(R.id.value_arrival));
+        value_distance = (TextView)(this.findViewById(R.id.value_distance));
+        value_duration = (TextView)(this.findViewById(R.id.value_duration));
+        value_instruction = (TextView)(this.findViewById(R.id.value_instructions));
+        value_speed = (TextView)(this.findViewById(R.id.value_speed));
+        value_arriving_time = (TextView)(this.findViewById(R.id.value_arriving_time));
+
+        nav_bar_top = (RelativeLayout)(this.findViewById(R.id.nav_top_bar));
+        nav_bar_bottom = (RelativeLayout)(this.findViewById(R.id.nav_bottom_bar));
+        nav_bar_bottom_step = (RelativeLayout)(this.findViewById(R.id.nav_bottom_bar_step));
+
+        arrowNext = (ImageButton)(this.findViewById(R.id.nav_btn_next_step));
+        arrowPrevious = (ImageButton)(this.findViewById(R.id.nav_btn_previous_step));
+
+        nav_img_battery = (ImageView)(this.findViewById(R.id.nav_img_battery));
+
+        // Get extras
+        Intent extras = this.getIntent();
+        if(extras.getExtras() != null){
+            value_departure.setText(extras.getExtras().getString("START_ADDRESS"));
+            value_arrival.setText(extras.getExtras().getString("END_ADDRESS"));
+            value_distance.setText("("+extras.getExtras().getString("DISTANCE")+")");
+            value_duration.setText(extras.getExtras().getString("DURATION"));
+        }
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mv.onDestroy();
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        map.setMyLocationEnabled(true);
+        map.getUiSettings().setMyLocationButtonEnabled(true);
+
+        // center camera
+        location = map.getMyLocation();
+
+        // get route
+        route = Itineraire.getRoutes().get(0);
+
+        // draw route
+        if( route != null ){
+            drawRoute();
+        }
     }
 
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mv.onLowMemory();
-    }
+    /**
+     * Draw a preview of the route
+     */
+    public void drawRoute(){
+        steps_origin = route.getLegs().get(0).getSteps();
 
-    private void setUpMap() {
-        // Enabling MyLocation Layer of Google Map
-        mMap.setMyLocationEnabled(true);
+        // Add polyline
+        PolylineOptions polylineOptions = new PolylineOptions();
+        for(int i=0; i<steps_origin.size(); i++){
+            List<LatLng> points = steps_origin.get(i).getPoints();
+            polylineOptions.addAll(points);
+        }
 
-        // Set Location Manager
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        // Draw polyline
+        polylineOptions.color(Color.parseColor("#ff1f8fe5"));
+        polylineOptions.width(10);
+        polyline = map.addPolyline(polylineOptions);
 
-        // ClickListener Location Button
-        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+        // Draw marker
+        LatLng start_address = route.getLegs().get(0).getStartLocation();
+        LatLng end_address = route.getLegs().get(0).getEndLocation();
+
+        start_marker = map.addMarker(new MarkerOptions()
+                .position(start_address)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+
+        end_marker = map.addMarker(new MarkerOptions()
+                .position(end_address)
+                .draggable(false)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+
+        // Center camera
+        LatLngBounds.Builder bounds_builder = new LatLngBounds.Builder();
+        bounds_builder.include(new LatLng(route.getBounds().getNorthEast().latitude,route.getBounds().getNorthEast().longitude));
+        bounds_builder.include(new LatLng(route.getBounds().getSouthWest().latitude,route.getBounds().getSouthWest().longitude));
+        bounds = bounds_builder.build();
+
+        map.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
-            public boolean onMyLocationButtonClick() {
-                if(!update){
-                    startLocalisation();
-                }else{
-                    stopLocalisation();
-                }
-                return true;
+            public void onMapLoaded() {
+                map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds,300));
             }
         });
+    }
 
-        // Creating a criteria object to retrieve provider
-        Criteria criteria = new Criteria();
-        // Getting the name of the best provider
-        String provider = locationManager.getBestProvider(criteria, true);
-        // Getting Current Location
-        Location location = locationManager.getLastKnownLocation(provider);
+    /**
+     * Stop navigation (nav_btn_stop)
+     * Stop activity and load Itineraire activity
+     * @param view
+     */
+    public void stopNavigation(View view){
+        Intent intent = new Intent(this,Itineraire.class);
+        this.startActivity(intent);
+        this.finish();
+    }
 
-        if(location!=null){
-            onLocationChangedActivity(location);
+    /**
+     * Start navigation (nav_btn_start)
+     * @param view
+     */
+    public void startNavigation(View view){
+        // remove start marker
+        if( start_marker != null) start_marker.remove();
+
+        // hide/show bars
+        nav_bar_top.setVisibility(View.INVISIBLE);
+        nav_bar_bottom.setVisibility(View.INVISIBLE);
+        nav_bar_bottom_step.setVisibility(View.VISIBLE);
+
+        // show ui
+        nav_img_battery.setVisibility(View.VISIBLE);
+        value_arriving_time.setVisibility(View.VISIBLE);
+        value_speed.setVisibility(View.VISIBLE);
+
+        if(location != null) value_speed.setText(location.getSpeed() + ""); // speed
+
+        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        now.add(Calendar.SECOND, (int) route.getLegs().get(0).getDuration().getValue());
+        value_arriving_time.setText(now.get(Calendar.HOUR_OF_DAY) + "h" + now.get(Calendar.MINUTE)); // arriving time
+
+        maxStep = steps_origin.size();
+        nextStep(view);
+    }
+
+    public void nextStep(View view){
+        step++;
+        step();
+    }
+
+    public void previousStep(View view){
+        step--;
+        step();
+    }
+
+    /**
+     * Set: redraw route, move camera and show instructions for the current step
+     */
+    private void step(){
+        // init arrow button
+        arrowNext.setEnabled(true);
+        arrowPrevious.setEnabled(true);
+
+        if(step <= 0){
+            arrowPrevious.setEnabled(false);
+        }else if(step >= maxStep){
+            arrowNext.setEnabled(false);
         }
 
+        arrowNext.setImageResource( (arrowNext.isEnabled()) ? R.drawable.ic_chevron_right_white_36dp : R.drawable.ic_chevron_right_grey600_36dp );
+        arrowNext.setAlpha( (arrowNext.isEnabled()) ? (float)1.0 : (float)0.5 );
+        arrowPrevious.setImageResource( (arrowPrevious.isEnabled()) ? R.drawable.ic_chevron_left_white_36dp : R.drawable.ic_chevron_left_grey600_36dp );
+        arrowPrevious.setAlpha( (arrowPrevious.isEnabled()) ? (float)1.0 : (float)0.5 );
+
+
+        if(step == maxStep){ // end
+            polyline.remove();
+            value_instruction.setText(Html.fromHtml("<b>Vous êtes arrivé !</b>"));
+        }else{
+            Step currentStep = steps_origin.get(step);
+
+            // redraw route
+            redrawRoute();
+            // set instruction
+            value_instruction.setText(Html.fromHtml(currentStep.getHtmlInstructions()));
+            // move camera
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentStep.getStartLocation(),17));
+        }
     }
 
-    private void onLocationChangedActivity(Location location) {
-        TextView tvLocation = (TextView) getView().findViewById(R.id.tvmap);
+    /**
+     * Redraw route with current step
+     */
+    private void redrawRoute(){
+        // remove previous polyline
+        polyline.remove();
 
-        // Getting latitude of the current location
-        double latitude = location.getLatitude();
-
-        // Getting longitude of the current location
-        double longitude = location.getLongitude();
-
-        // Creating a LatLng object for the current location
-        LatLng latLng = new LatLng(latitude, longitude);
-
-        // Showing the current location in Google Map
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
-        // Zoom in the Google Map
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-
-        // Setting latitude and longitude in the TextView tv_location
-        tvLocation.setText("Latitude:" +  latitude  + ", Longitude:"+ longitude + ", Altitude:" + location.getAltitude() + ", Speed:" + location.getSpeed());
-    }
-
-
-    private void startLocalisation(){
-        TextView tvFollow = (TextView) getView().findViewById(R.id.tvfollow);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, locationListener);
-        tvFollow.setText("Following");
-        update = true;
-    }
-
-    private void stopLocalisation(){
-        TextView tvFollow = (TextView) getView().findViewById(R.id.tvfollow);
-        locationManager.removeUpdates(locationListener);
-        tvFollow.setText("Not Following");
-        update = false;
-    }
-
-    public static void drawRoute(List<Route> routes){
-        Log.d("DrawRoute","draw route : " + routes);
+        // create a new polyline
         PolylineOptions polylineOptions = new PolylineOptions();
-
-        List<Step> steps = routes.get(0).getLegs().get(0).getSteps();
-
-        for(int i=0; i<steps.size(); i++){
-            polylineOptions.addAll(steps.get(i).getPoints());
+        for(int i=step; i<steps_origin.size(); i++){
+            List<LatLng> points = steps_origin.get(i).getPoints();
+            polylineOptions.addAll(points);
         }
-        polylineOptions.color(Color.BLUE);
-        polylineOptions.width(2);
-        mMap.addPolyline(polylineOptions);
-    }
 
+        // Draw polyline
+        polylineOptions.color(Color.parseColor("#ff1f8fe5"));
+        polylineOptions.width(10);
+        polyline = map.addPolyline(polylineOptions);
+    }
 }

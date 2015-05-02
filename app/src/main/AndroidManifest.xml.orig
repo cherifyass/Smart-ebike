@@ -82,21 +82,21 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".Details"
-            android:label="@string/title_activity_details" >
-            android:parentActivityName=".Details" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Details" />
-        </activity>
-
-        <activity
+<<<<<<< HEAD
             android:name=".navigation.Navigation"
             android:label="@string/title_activity_navigation"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+=======
+            android:name=".Details"
+            android:label="@string/title_activity_details" >
+            android:parentActivityName=".Details" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Details" />
+>>>>>>> 781341c1b5f29340b3c276febc2d2b52ccdf78d3
         </activity>
     </application>
 
