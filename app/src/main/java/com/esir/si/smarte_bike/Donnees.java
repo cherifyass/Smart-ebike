@@ -1,5 +1,9 @@
 package com.esir.si.smarte_bike;
 
+import android.content.Context;
+import android.graphics.Canvas;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -113,6 +117,7 @@ public class Donnees extends Fragment{
         });
 
         /* Widget météo */
+        final ConnectivityManager cm = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         // TODO: Récupérer la ville à partir de l'activité Maps
         final String city = "Rennes,FR";
         final String lang = "fr";
@@ -121,7 +126,15 @@ public class Donnees extends Fragment{
         temp = (TextView) view.findViewById(R.id.temp);
         condIcon = (ImageView) view.findViewById(R.id.condIcon);
         cityText = (TextView) view.findViewById(R.id.cityText);
-        cityText.setText("Chargement de météo ...");
+
+        // check if device is connected to a network
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if (ni == null)
+            cityText.setText("Impossible de se connecter à internet !\n " +
+                    "Veuillez vérifier votre connexion !");
+        else
+            cityText.setText("Chargement de météo ...");
+
         condDescr = (TextView) view.findViewById(R.id.condDescr);
         hum = (TextView) view.findViewById(R.id.hum);
         humLab = (TextView) view.findViewById(R.id.humLab);
@@ -133,15 +146,30 @@ public class Donnees extends Fragment{
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONWeatherTask task = new JSONWeatherTask();
-                task.execute(new String[]{city,"fr"});
+                NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+                if (networkInfo != null) {
+                    JSONWeatherTask task = new JSONWeatherTask();
+                    task.execute(new String[]{city, "fr"});
+                } else {
+                    cityText.setText("Impossible de se connecter à internet !\n " +
+                            "Veuillez vérifier votre connexion !");
+                    temp.setText("");
+                    condDescr.setText("");
+                    windLab.setText("");
+                    windSpeed.setText("");
+                    hum.setText("");
+                    humLab.setText("");
+                    condIcon.setImageDrawable(null);
+                }
             }
         });
-        JSONWeatherTask task = new JSONWeatherTask();
-        task.execute(new String[]{city,lang});
+
+        if(ni != null) {
+            JSONWeatherTask task = new JSONWeatherTask();
+            task.execute(new String[]{city, lang});
+        }
 
         return view;
-
     }
 
     private class JSONWeatherTask extends AsyncTask<String, Void, Weather> {
