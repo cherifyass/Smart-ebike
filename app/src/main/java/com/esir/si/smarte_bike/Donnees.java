@@ -1,7 +1,6 @@
 package com.esir.si.smarte_bike;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -178,7 +177,6 @@ public class Donnees extends Fragment{
         protected Weather doInBackground(String... params) {
             Weather weather = new Weather();
 
-            // TODO: Vérifier s'il y a internet ? THIS IS Just WORDKAROUND TO FIX NPE BUG
             String data = null;
             while(data == null)
                 data = ((new WeatherHttpClient()).getWeatherData(params[0], params[1]));
