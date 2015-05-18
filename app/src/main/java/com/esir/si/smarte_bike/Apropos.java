@@ -40,8 +40,4 @@ public class Apropos extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void goToDetails(View view){
-        Intent intent = new Intent(this, Details.class);
-        startActivity(intent);
-    }
 }

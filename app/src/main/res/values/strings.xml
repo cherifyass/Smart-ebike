@@ -84,5 +84,7 @@
     <string name="title_activity_historique">Historique</string>
     <string name="title_activity_details">Details</string>
 
+    <!-- A Propos -->
 
+    <string name="title_activity_apropos">A Propos</string>
 </resources>
