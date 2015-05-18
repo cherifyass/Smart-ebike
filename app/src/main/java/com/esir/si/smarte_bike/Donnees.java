@@ -202,7 +202,7 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
                 Log.i(TAG, "No internet connection");
                 mWritten = true;
             }
-            
+
             cityText.setText("Impossible de se connecter à internet !\n " +
                     "Veuillez vérifier votre connexion !");
             temp.setText("");
@@ -226,8 +226,9 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
             Weather weather = new Weather();
 
             String data = null;
-            while(data == null)
-                data = ((new WeatherHttpClient()).getWeatherData(params[0], params[1]));
+            data = ((new WeatherHttpClient()).getWeatherData(params[0], params[1]));
+            if (data == null)
+                return null;
 
             try {
                 weather = JSONWeatherParser.getWeather(data);
@@ -244,6 +245,9 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
         @Override
         protected void onPostExecute(Weather weather) {
             super.onPostExecute(weather);
+
+            if(weather == null)
+                return;
 
             if (weather.iconData != null ) {
                 condIcon.setImageBitmap(weather.iconData);

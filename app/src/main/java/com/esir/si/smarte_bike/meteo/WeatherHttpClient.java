@@ -20,6 +20,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -62,12 +63,15 @@ public class WeatherHttpClient {
 			t.printStackTrace();
 		}
 		finally {
-			try { is.close(); } catch(Throwable t) {}
+			try {
+				assert is != null;
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			try { con.disconnect(); } catch(Throwable t) {}
 		}
-
 		return null;
-				
 	}
 	
 	public Bitmap getImage(String code) {
@@ -90,11 +94,14 @@ public class WeatherHttpClient {
 			t.printStackTrace();
 		}
 		finally {
-			try { is.close(); } catch(Throwable t) {}
+			try {
+				assert is != null;
+				is.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			try { con.disconnect(); } catch(Throwable t) {}
 		}
-		
 		return null;
-		
 	}
 }
