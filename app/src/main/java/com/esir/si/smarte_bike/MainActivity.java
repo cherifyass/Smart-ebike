@@ -84,6 +84,10 @@ public class MainActivity extends FragmentActivity {
         startActivity(intent);
     }
 
+    public void goToApropos(View view){
+        Intent intent = new Intent(this, Historique.class);
+        startActivity(intent);
+    }
     // Formulaire itineraire
     public void newItinerary(View view){
         Intent intent = new Intent(this,Itineraire.class);
