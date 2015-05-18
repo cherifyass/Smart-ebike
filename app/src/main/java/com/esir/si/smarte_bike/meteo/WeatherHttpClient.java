@@ -27,18 +27,17 @@ import java.net.URL;
 
 public class WeatherHttpClient {
 
-	private static String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
+	private static String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?";
 	private static String IMG_URL = "http://openweathermap.org/img/w/";
 
-	public String getWeatherData(String location, String lang) {
+	public String getWeatherData(String lat, String lon) {
 		HttpURLConnection con = null ;
 		InputStream is = null;
 		
 		try {
-			String url = BASE_URL + location;
+			String url = BASE_URL + "lat=" + lat + "&lon=" + lon;
             url = url + "&units=metric";
-			if (lang != null)
-				url = url + "&lang=" + lang;
+			url = url + "&lang=fr";
 			
 			con = (HttpURLConnection) ( new URL(url)).openConnection();
 			con.setRequestMethod("GET");

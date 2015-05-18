@@ -1,11 +1,13 @@
 package com.esir.si.smarte_bike;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import android.view.View;
@@ -19,12 +21,20 @@ import com.esir.si.smarte_bike.meteo.JSONWeatherParser;
 import com.esir.si.smarte_bike.meteo.WeatherHttpClient;
 import com.esir.si.smarte_bike.meteo.model_donnees.Weather;
 import com.esir.si.smarte_bike.sup.Slider;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONException;
 
 import java.text.DecimalFormat;
 
-public class Donnees extends Fragment{
+public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+
+    public static final String TAG = Donnees.class.getSimpleName();
 
     private Slider slider = null;
 
@@ -44,14 +54,17 @@ public class Donnees extends Fragment{
     private TextView windLab;
     private TextView hum;
     private TextView humLab;
-    private Button refreshBtn;
     private ImageView condIcon;
+
+    // Location attributes
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.donnees, container, false);
+        View view = inflater.inflate(R.layout.donnees, container, false);
         //On récupère le bouton pour cacher/afficher le menu
         boutonStat = (Button) view.findViewById(R.id.boutonStat);
         boutonMeteo = (Button) view.findViewById(R.id.boutonMeteo);
@@ -72,13 +85,11 @@ public class Donnees extends Fragment{
                 //On définit le contenu
                 slider.setToHide(contenuStat);
                 //...pour afficher ou cache le menu
-                if(slider.toggle())
-                {
+                if (slider.toggle()) {
                     //Si le Slider est ouvert...
                     //... on change le texte en "Cacher"
                     boutonStat.setText("- Mes Statistiques");
-                }else
-                {
+                } else {
                     //Sinon on met "Afficher"
                     boutonStat.setText("+ Mes Statistiques");
                 }
@@ -90,11 +101,9 @@ public class Donnees extends Fragment{
             public void onClick(View vue) {
                 slider.setToHide(contenuMeteo);
 
-                if(slider.toggle())
-                {
+                if (slider.toggle()) {
                     boutonMeteo.setText("- Ma météo");
-                }else
-                {
+                } else {
                     boutonMeteo.setText("+ Ma météo");
                 }
             }
@@ -105,21 +114,23 @@ public class Donnees extends Fragment{
             public void onClick(View vue) {
                 slider.setToHide(contenuSante);
 
-                if(slider.toggle())
-                {
+                if (slider.toggle()) {
                     boutonSante.setText("- Ma santé");
-                }else
-                {
+                } else {
                     boutonSante.setText("+ Ma santé");
                 }
             }
         });
 
+        // add LocationServices API
+        mGoogleApiClient = new GoogleApiClient.Builder(this.getActivity())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+
         /* Widget météo */
         final ConnectivityManager cm = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        // TODO: Récupérer la ville à partir de l'activité Maps
-        final String city = "Rennes,FR";
-        final String lang = "fr";
 
         // initialisation des views
         temp = (TextView) view.findViewById(R.id.temp);
@@ -139,36 +150,68 @@ public class Donnees extends Fragment{
         humLab = (TextView) view.findViewById(R.id.humLab);
         windSpeed = (TextView) view.findViewById(R.id.windSpeed);
         windLab = (TextView) view.findViewById(R.id.windLab);
-        refreshBtn = (Button) view.findViewById(R.id.refreshButton);
-
-        // bouton actualiser
-        refreshBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-                if (networkInfo != null) {
-                    JSONWeatherTask task = new JSONWeatherTask();
-                    task.execute(new String[]{city, "fr"});
-                } else {
-                    cityText.setText("Impossible de se connecter à internet !\n " +
-                            "Veuillez vérifier votre connexion !");
-                    temp.setText("");
-                    condDescr.setText("");
-                    windLab.setText("");
-                    windSpeed.setText("");
-                    hum.setText("");
-                    humLab.setText("");
-                    condIcon.setImageDrawable(null);
-                }
-            }
-        });
-
-        if(ni != null) {
-            JSONWeatherTask task = new JSONWeatherTask();
-            task.execute(new String[]{city, lang});
-        }
 
         return view;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        // connect the client
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onStop(){
+        // Disconnecting the client invalidates it.
+        mGoogleApiClient.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.i(TAG, "Location services connected.");
+
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(1000); // Update location every second
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient, mLocationRequest, this);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.i(TAG, "GoogleApiClient connection has been suspend");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.i(TAG, "GoogleApiClient connection has failed");
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        // location param is the new updated location
+        ConnectivityManager cm = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        // check if device is connected to a network
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if (ni == null) {
+            Log.i(TAG, "No internet connection");
+            cityText.setText("Impossible de se connecter à internet !\n " +
+                    "Veuillez vérifier votre connexion !");
+            temp.setText("");
+            condDescr.setText("");
+            windLab.setText("");
+            windSpeed.setText("");
+            hum.setText("");
+            humLab.setText("");
+            condIcon.setImageDrawable(null);
+        }
+        else {
+            JSONWeatherTask task = new JSONWeatherTask();
+            task.execute(String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
+        }
     }
 
     private class JSONWeatherTask extends AsyncTask<String, Void, Weather> {
