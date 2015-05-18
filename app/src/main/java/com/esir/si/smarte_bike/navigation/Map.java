@@ -122,6 +122,8 @@ public class Map extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (mv == null)
+            return;
         mv.onDestroy();
     }
 
