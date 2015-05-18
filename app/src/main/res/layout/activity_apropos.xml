@@ -15,24 +15,27 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Merci d'utliser Smart E­Bike
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        style="@style/HTexteC2"
+        android:text="Merci d'utiliser Smart E­Bike
 
-Smart E­Bike est une application entièrement imaginée et développée par des étudiants de l'ESIR
+\n\nSmart E­Bike est une application entièrement imaginée et développée par des étudiants de l'ESIR
 
-(École Supérieure d'Ingénieurs de Rennes)
+\n\n(École Supérieure d'Ingénieurs de Rennes)
 
-Contact :
+\n\nContact :
 
-Si vous rencontrez le moindre problème concernant l'application ou que vous avez des idées, remarques ou demandes, contactez­nous :
+\n\nSi vous rencontrez le moindre problème concernant l'application ou que vous avez des idées, remarques ou demandes, contactez­nous :
 
-e­mail : smart_ebike@gmail.com
+\n\ne­mail : smart_ebike@gmail.com
 
-L'application « Smart E­Bike » est en accès libre.
+\n\nL'application « Smart E­Bike » est en accès libre.
 
-Cette application utilise les données en temps réels, nous déclinons toute responsabilité au sujet d'éventuelles erreurs.
+\n\nCette application utilise les données en temps réels, nous déclinons toute responsabilité au sujet d'éventuelles erreurs.
 
-V1.0
+\n\nV1.0
 
-All rights reserved"/>
+\n\nAll rights reserved by Marouane"/>
 
 </LinearLayout>
