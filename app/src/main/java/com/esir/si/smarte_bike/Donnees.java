@@ -59,6 +59,7 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
     // Location attributes
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
+    private boolean mWritten = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -197,7 +198,11 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
         // check if device is connected to a network
         NetworkInfo ni = cm.getActiveNetworkInfo();
         if (ni == null) {
-            Log.i(TAG, "No internet connection");
+            if(!mWritten) {
+                Log.i(TAG, "No internet connection");
+                mWritten = true;
+            }
+            
             cityText.setText("Impossible de se connecter à internet !\n " +
                     "Veuillez vérifier votre connexion !");
             temp.setText("");
