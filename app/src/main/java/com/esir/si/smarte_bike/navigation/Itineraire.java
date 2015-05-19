@@ -5,6 +5,7 @@ import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,12 +18,16 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.esir.si.smarte_bike.R;
+import com.esir.si.smarte_bike.json.Duree;
+import com.esir.si.smarte_bike.json.Endroit;
+import com.esir.si.smarte_bike.json.ItineraireJson;
 import com.esir.si.smarte_bike.json.JsonModel;
 import com.esir.si.smarte_bike.json.JsonUtil;
-import com.esir.si.smarte_bike.json.Trip;
 import com.esir.si.smarte_bike.navigation.autocomplete.PlacesAutoCompleteAdapter;
 import com.esir.si.smarte_bike.navigation.direction.RequestAPITask;
 import com.esir.si.smarte_bike.navigation.direction.Route;
+
+import java.io.File;
 import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -40,9 +45,8 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
 
     public ProgressDialog progressDialog;
 
-    //json
-    public static JsonModel globalJsonModel = new JsonModel();
-    public static String globalListOfTrips = "";
+    //json report creator
+    public static JsonModel globalReport = new JsonModel();
     //
 
     @Override
@@ -143,12 +147,32 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
                 Log.d("TripDate", reportDate);
 
 
-                //json working
-                Trip ut = new Trip(origin, destination, reportDate);
-                Itineraire.globalJsonModel.getTrajetsList().add(ut);
-                //JsonUtil.toTextFile(JsonUtil.toJson(globalItineraireModel));
-                Log.d("json", JsonUtil.toJson(Itineraire.globalJsonModel));
-                Itineraire.globalListOfTrips = JsonUtil.toJson(Itineraire.globalJsonModel);
+                //create a json report:
+
+                    //create a new itineraire, then push it to the current list of itineraires:
+                    Endroit jDepart = new Endroit(0, 0, origin);
+                    Endroit jArrivee = new Endroit(0, 0, destination);
+                    double jDistance = 0;
+                    Duree jDuree = new Duree(0, 0, 0);
+                    double jVitesseMoy = 0;
+                    double jVitesseMax = 0;
+                    double jCalories = 0;
+                    double jAltitudeMin = 0;
+                    double jAltitudeMax = 0;
+                    ItineraireJson itineraireJson = new ItineraireJson(today, jDepart, jArrivee, jDistance, jDuree, jVitesseMoy, jVitesseMax, jCalories, jAltitudeMin, jAltitudeMax);
+                    globalReport.getItineraireList().add(itineraireJson);
+                    Log.d("json", JsonUtil.toJsonString(globalReport));
+                    //fin
+
+                //fin create a json report
+
+                //write to file in external storage (user's public document directory), in background
+                JsonParams jp = new JsonParams(JsonUtil.toJsonString(globalReport), "smartebikejsonreport.txt");
+                WriteJsonFileAsyncTask wjfat = new WriteJsonFileAsyncTask();
+                wjfat.execute(jp);
+                //
+
+
 
                 //routes = new RequestAPITask(this,this.findViewById(android.R.id.content)).execute(url).get();
                 new RequestAPITask(this, this.findViewById(android.R.id.content)).execute(url);
@@ -165,5 +189,30 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
 
     public static void setRoutes(List<Route> r){
         routes = r;
+    }
+
+    private static class JsonParams {
+        String report;
+        String reportName;
+
+        private JsonParams(String r, String rn) {
+            this.report = r;
+            this.reportName = rn;
+        }
+    }
+
+    private class WriteJsonFileAsyncTask extends AsyncTask<JsonParams, Void, Void> {
+
+        @Override
+        protected Void doInBackground(JsonParams... params) {
+            String globalReport = params[0].report;
+            String reportName = params[0].reportName;
+            try {
+                JsonUtil.generateJsonReportOnSD(globalReport, reportName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }

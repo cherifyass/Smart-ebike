@@ -7,20 +7,16 @@ import java.util.List;
 public class JsonModel {
 
     private String sessionId;
-    private List<Trip> trajetsList;
+    private List<EBikeUser> ebikeUserList;
+    private List<EBikeBattery> ebikeBatteryList;
+    private List<ItineraireJson> itineraireList;
 
 
     public JsonModel() {
-        this.sessionId = "SessionIdTestYupii";
-        this.trajetsList = new ArrayList<Trip>();
-    }
-
-    public List<Trip> getTrajetsList() {
-        return trajetsList;
-    }
-
-    public void setTrajetsList(List<Trip> trajetsList) {
-        this.trajetsList = trajetsList;
+        this.sessionId = "TestYupii";
+        this.ebikeUserList = new ArrayList<EBikeUser>();
+        this.ebikeBatteryList = new ArrayList<EBikeBattery>();
+        this.itineraireList = new ArrayList<ItineraireJson>();
     }
 
     public String getSessionId() {
@@ -31,6 +27,28 @@ public class JsonModel {
         this.sessionId = sessionId;
     }
 
+    public List<EBikeUser> getEbikeUserList() {
+        return ebikeUserList;
+    }
 
+    public void setEbikeUserList(List<EBikeUser> ebikeUserList) {
+        this.ebikeUserList = ebikeUserList;
+    }
+
+    public List<EBikeBattery> getEbikeBatteryList() {
+        return ebikeBatteryList;
+    }
+
+    public void setEbikeBatteryList(List<EBikeBattery> ebikeBatteryList) {
+        this.ebikeBatteryList = ebikeBatteryList;
+    }
+
+    public List<ItineraireJson> getItineraireList() {
+        return itineraireList;
+    }
+
+    public void setItineraireList(List<ItineraireJson> itineraireList) {
+        this.itineraireList = itineraireList;
+    }
 }
 
