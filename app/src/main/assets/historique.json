@@ -1,0 +1,16 @@
+{
+    "Trips": [
+        {
+            "depart": "Paris",
+            "arrivee": "Marseille",
+            "date": "20/01/2015",
+            "distance" : "5 km"
+        },
+        {
+            "depart": "Nantes",
+            "arrivee": "25 Rue de Paris, 35000 Rennes, France",
+            "date": "18/05/2015",
+            "distance" : "10 km"
+        }
+    ]
+}
