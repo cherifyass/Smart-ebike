@@ -21,6 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Loann on 20/03/2015.
@@ -88,6 +89,19 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
             Log.d("ITINERAIRE", ">>>>>> " + steps.get(i).getHtmlInstructions());
         }
 
+        // call elevation api
+        List<Step> ste = null;
+        try {
+            ste = new RequestAPIElevation(mycontext,myview).execute(routes.get(0).getLegs().get(0).getSteps()).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // create url chart
+        String url_chart = createChartUrl(ste);
+
+        Log.d("RequestAPITASK",url_chart);
+
+
         // set routes
         ((Itineraire) mycontext).setRoutes(routes);
 
@@ -98,10 +112,28 @@ public class RequestAPITask extends AsyncTask<String,Integer,List<Route>> {
         intent.putExtra("END_ADDRESS",leg.getEndAddress());
         intent.putExtra("DISTANCE",leg.getDistance().getText());
         intent.putExtra("DURATION",leg.getDuration().getText());
+        intent.putExtra("URL_ELEV",url_chart);
         mycontext.startActivity(intent);
         ((Itineraire) mycontext).finish();
     }
 
+    private String createChartUrl(List<Step> steps){
+        int max = 0;
+        int min = 0;
+        String elevation_data = "";
+        for(int i = 0; i < steps.size(); i++){
+            float elev = steps.get(i).getElevation();
+            if(max < elev) max = (int)elev;
+            if(min > elev) min = (int)elev;
+            elevation_data += elev;
+            if((i + 1) < steps.size()) elevation_data += ",";
+        }
+        int ecart = (int)((max - min) * 0.1);
+        max += ecart;
+        min += ecart;
+        String url_chart = "https://chart.googleapis.com/chart?chxt=x,y&chds="+min+","+max+"&chs=500x160&cht=lc&chxr=1,"+min+","+max+"&chd=t:" + elevation_data + "&chco=orange";
+        return url_chart;
+    }
     private String convertStreamToString(final InputStream input) throws Exception {
         try {
             final BufferedReader reader = new BufferedReader(new InputStreamReader(input));

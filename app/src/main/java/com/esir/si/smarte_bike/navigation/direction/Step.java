@@ -16,6 +16,7 @@ public class Step {
     private String htmlInstructions;
     private String travelMode;
     private List<LatLng> points;
+    private Float elevation;
 
     public List<LatLng> getPoints() {
         return points;
@@ -72,4 +73,8 @@ public class Step {
     public void setTravelMode(String travelMode) {
         this.travelMode = travelMode;
     }
+
+    public float getElevation() { return elevation; }
+
+    public void setElevation(float e) { elevation = e; }
 }
