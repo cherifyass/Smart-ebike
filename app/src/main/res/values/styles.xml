@@ -27,15 +27,12 @@
         <item name="android:textColor">#00008B</item>
         <item name="android:textSize">20dp</item>
         <item name="android:paddingBottom">15dp</item>
-        <item name="android:gravity">center_horizontal</item>
     </style>
     <style name="titreColonne">
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">#FF0000</item>
-        <item name="android:textSize">16dp</item>
         <item name="android:paddingBottom">15dp</item>
-        <item name="android:gravity">center</item>
     </style>
     <style name="boutonDetails">
         <item name="android:layout_gravity">center_horizontal</item>

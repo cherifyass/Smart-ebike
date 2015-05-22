@@ -45,15 +45,17 @@
     </TableLayout>
 
     <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/bouton"
+        android:layout_width="197dp"
         android:onClick="seConnecter"
         android:text="@string/connexion" />
 
     <Button
         android:id="@+id/gestionVelo"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/bouton"
+        android:layout_width="197dp"
         android:text="@string/gestionVelo"
         android:onClick="RPi"/>
 

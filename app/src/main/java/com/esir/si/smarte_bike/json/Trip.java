@@ -1,25 +1,26 @@
 package com.esir.si.smarte_bike.json;
 
-public class Trip {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Trip implements Parcelable {
     private String origin;
     private String destination;
-    private String tripDate;
+    private String date;
+    private String distance;
 
-    public String getTripDate() {
-        return tripDate;
-    }
-
-    public void setTripDate(String date) {
-        this.tripDate = date;
-    }
-
-    //pr le moment, on s'arrete ici
-    //List<route>, et des sous-informations trouvées dans folder direction (Bound, Distance etc...)
-
-    public Trip(String origin, String destination, String date) {
+    public Trip(String origin, String destination, String date, String distance) {
         this.origin = origin;
         this.destination = destination;
-        this.tripDate = date;
+        this.date = date;
+        this.distance = distance;
+    }
+
+    public Trip(Parcel source){
+        origin = source.readString();
+        destination = source.readString();
+        date = source.readString();
+        distance = source.readString();
     }
 
     public String getOrigin() {
@@ -37,4 +38,45 @@ public class Trip {
     public void setDestination(String destination) {
         this.destination = destination;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(origin);
+        dest.writeString(destination);
+        dest.writeString(date);
+        dest.writeString(distance);
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Trip createFromParcel(Parcel in) {
+            return new Trip(in);
+        }
+
+        public Trip[] newArray(int size) {
+            return new Trip[size];
+        }
+    };
+
 }
+
