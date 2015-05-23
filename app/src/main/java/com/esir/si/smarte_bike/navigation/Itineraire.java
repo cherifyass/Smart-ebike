@@ -141,15 +141,7 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
                 String reportDate = df.format(today);
                 Log.d("TripDate", reportDate);
 
-
-                //create a json report:
-                //htd 22-05: how abt first checking whether the report exists, if it isnt, then create a new one?
-
-                //create a new itineraire, then push it to the current list of itineraires:
-                //Endroit jDepart = new Endroit(0, 0, origin);
-                //Endroit jArrivee = new Endroit(0, 0, destination);
                 double jDistance = 0;
-                //Duree jDuree = new Duree(0, 0, 0);
                 double jVitesseMoy = 0;
                 double jVitesseMax = 0;
                 double jCalories = 0;
@@ -163,6 +155,7 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
 
 
                 //small test for lireRapportJson, using the json file just created above:
+                //décommenter ssi vous avez Kappa.txt dans répertoire Documents/smart-ebike_report
                 jsonUtil.lireRapportJson(JsonUtil.createCustomPath("Kappa.txt"));
                 //
 

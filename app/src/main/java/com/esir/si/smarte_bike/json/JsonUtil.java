@@ -80,7 +80,7 @@ public class JsonUtil {
     }
 
     /**
-     * mettre-à-jour un nouveau itinéraire dans le rapport
+     * ajouter un nouveau itinéraire dans le rapport
      * puis créer un nouveau rapport json dans le répertoire suivant :
      * "/sdcard/Documents/smartebike_reports/"
      * Le contenu du rapport est fabriqué à partir de
@@ -102,7 +102,7 @@ public class JsonUtil {
      * remplacer le contenu du rapport dans this.jsonModel.toString() par
      * le contenu obtenu à partir de chemin.
      * Puis charger le rapport json dans le menu Historique de l'application
-     * depuis le chemin.
+     * depuis le chemin. (A FAIRE)
      * @param chemin
      * @throws JSONException
      */
@@ -110,6 +110,8 @@ public class JsonUtil {
         CustomParams params = new CustomParams(this, chemin);
         ReadJsonFileAsyncTask task = new ReadJsonFileAsyncTask();
         task.execute(params);
+
+        //(A FAIRE)
     }
 
     /* Checks if external storage is available for read and write */
@@ -142,6 +144,7 @@ public class JsonUtil {
                 writer.append(host.getJsonModel().toString());
                 writer.flush();
                 writer.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -160,28 +163,11 @@ public class JsonUtil {
             String JSONString = null;
             JSONObject JSONObject = null;
             try {
-                //open the inputStream to the file
-                /*
-                File root = new File(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_DOCUMENTS), "smart-ebike_reports");
-                if (!root.mkdirs()) {
-                    Log.e("json err", "Directory not existed. Creating new one.");
-                    root.mkdirs();
-                }
-                File file = new File(root, "default_report.txt");
-                */
                 InputStream inputStream = new FileInputStream(chemin);
                 int sizeOfJSONFile = inputStream.available();
-
-                //array that will store all the data
                 byte[] bytes = new byte[sizeOfJSONFile];
-
-                //reading data into the array from the file
                 inputStream.read(bytes);
-
-                //close the input stream
                 inputStream.close();
-
                 JSONString = new String(bytes, "UTF-8");
                 JSONObject = new JSONObject(JSONString);
 

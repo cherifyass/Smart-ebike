@@ -28,10 +28,6 @@ public class JsonModel {
         this.myItineraireList = myItineraireList;
     }
 
-    /**
-     *
-     * @return le contenu du fichier json en chaine de caractère
-     */
     public String toString() {
         try {
             JSONObject root = new JSONObject();
