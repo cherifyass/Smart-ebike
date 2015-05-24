@@ -2,6 +2,7 @@ package com.esir.si.smarte_bike.json;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,9 +62,15 @@ public class JsonUtil {
      * @return le fichier correspondant à FILENAME
      */
     private static File getOrCreateFile(Context c){
+        File root = new File(c.getFilesDir().getAbsolutePath());
+        if( !root.exists()){
+            Log.d("JSONUTIL", "Création du répertoire : " + root.getPath() );
+            root.mkdirs();
+        }
         File f = new File(c.getFilesDir().getAbsolutePath() + File.separator + FILENAME);
         if( !f.exists()){ //fichier n'existe pas, on le crée
-            f = new File(c.getFilesDir() + File.separator,FILENAME);
+            Log.d("JSONUTIL", "Création du fichier : " + f.getPath() );
+            f = new File(c.getFilesDir().getAbsolutePath() + File.separator,FILENAME);
         }
         return f;
     }
