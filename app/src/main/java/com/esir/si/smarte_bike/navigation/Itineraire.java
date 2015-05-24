@@ -22,7 +22,6 @@ import com.esir.si.smarte_bike.json.JsonUtil;
 import com.esir.si.smarte_bike.navigation.autocomplete.PlacesAutoCompleteAdapter;
 import com.esir.si.smarte_bike.navigation.direction.RequestAPITask;
 import com.esir.si.smarte_bike.navigation.direction.Route;
-import com.google.android.gms.internal.li;
 
 import java.net.URLEncoder;
 import java.text.DateFormat;
@@ -32,18 +31,13 @@ import java.util.Date;
 import java.util.List;
 
 public class Itineraire extends ActionBarActivity implements AdapterView.OnItemClickListener {
+    public static final String TAG = Itineraire.class.getSimpleName();
 
     private AutoCompleteTextView autoCompDepart;
     private AutoCompleteTextView autoCompArrivee;
     private CheckBox cb_maposition;
 
     private static List<Route> routes;
-
-    public ProgressDialog progressDialog;
-
-    //json report creator
-    public static JsonUtil jsonUtil = new JsonUtil();
-    //
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,17 +136,16 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
                 String reportDate = df.format(today);
                 Log.d("TripDate", reportDate);
 
-
                 //*********** TEST LECTURE ECRITURE ****************//
                 double jDistance = 0;
                 MyItineraire myItineraire =
                         new MyItineraire(22, 5, 2020, 20, 24, 0, 0, origin, 0, 0, destination,
                                 0, 0, 0, jDistance, jDistance, jDistance, jDistance, jDistance, jDistance);
 
-                Log.d("ECRITURE DANS LE FICHIER","");
+                Log.d(TAG, "ECRITURE DANS LE FICHIER");
                 JsonUtil.write(this,myItineraire);
                 List<MyItineraire> list_MyItineraires = JsonUtil.read(this);
-                Log.d("CONTENU DU FICHIER: ",list_MyItineraires.toString());
+                Log.d(TAG, "CONTENU DU FICHIER: "+list_MyItineraires.toString());
                 //*********** TEST LECTURE ECRITURE ****************//
 
                 //routes = new RequestAPITask(this,this.findViewById(android.R.id.content)).execute(url).get();
