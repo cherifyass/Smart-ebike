@@ -15,27 +15,6 @@
             android:contentDescription="@string/descriptionLogo"
             android:src="@drawable/logo" />
 
-        <Button
-            android:id="@+id/boutonStat"
-            style="@style/bouton"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="@string/statistiques" />
-
-        <RelativeLayout
-            android:id="@+id/contenuStat"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layoutAnimation="@anim/main_appear"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/lorem" />
-
-        </RelativeLayout>
-
         <!-- Meteo -->
         <Button
             android:id="@+id/boutonMeteo"
@@ -140,6 +119,27 @@
 
         </RelativeLayout>
         <!-- End Meteo -->
+
+        <Button
+            android:id="@+id/boutonStat"
+            style="@style/bouton"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="@string/statistiques" />
+
+        <RelativeLayout
+            android:id="@+id/contenuStat"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layoutAnimation="@anim/main_appear"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lorem" />
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/boutonSante"

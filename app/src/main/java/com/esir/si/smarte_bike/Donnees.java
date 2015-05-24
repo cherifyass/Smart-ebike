@@ -243,7 +243,7 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
 
             try {
                 weather = JSONWeatherParser.getWeather(data);
-                Log.i(TAG, "Weather [" + weather + "]");
+                //Log.i(TAG, "Weather [" + data + "]");
                 // Let's retrieve the icon
                 weather.iconData = ((new WeatherHttpClient()).getImage(weather.currentCondition.getIcon()));
 
