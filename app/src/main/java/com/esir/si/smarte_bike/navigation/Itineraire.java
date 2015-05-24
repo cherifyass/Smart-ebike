@@ -150,15 +150,12 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
                 MyItineraire myItineraire =
                         new MyItineraire(22, 5, 2020, 20, 24, 0, 0, origin, 0, 0, destination,
                                 0, 0, 0, jDistance, jDistance, jDistance, jDistance, jDistance, jDistance);
-                jsonUtil.ajouterItineraire(myItineraire);
-                Log.d("json itineraire counter", "" + jsonUtil.getJsonModel().getMyItineraireList().size());
 
-
-                //small test for lireRapportJson, using the json file just created above:
-                //décommenter ssi vous avez Kappa.txt dans répertoire Documents/smart-ebike_report
-                jsonUtil.lireRapportJson(JsonUtil.createCustomPath("Kappa.txt"));
-                //
-
+                Log.d("json#av.ajout",
+                        "" + jsonUtil.getJsonModel().getMyItineraireList().size());
+                jsonUtil.ecrire(myItineraire);
+                Log.d("json#ap.ajout",
+                        "" + jsonUtil.getJsonModel().getMyItineraireList().size());
 
 
                 //routes = new RequestAPITask(this,this.findViewById(android.R.id.content)).execute(url).get();
