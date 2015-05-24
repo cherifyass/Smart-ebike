@@ -218,5 +218,29 @@ public class MyItineraire {
         this.altitudeMax = altitudeMax;
     }
 
-
+    @Override
+    public String toString() {
+        return "MyItineraire{" +
+                "dateJour=" + dateJour +
+                ", dateMois=" + dateMois +
+                ", dateAnnee=" + dateAnnee +
+                ", dateH=" + dateH +
+                ", dateM=" + dateM +
+                ", depLat=" + depLat +
+                ", depLong=" + depLong +
+                ", depText='" + depText + '\'' +
+                ", arrLat=" + arrLat +
+                ", arrLong=" + arrLong +
+                ", arrText='" + arrText + '\'' +
+                ", dureeH=" + dureeH +
+                ", dureeM=" + dureeM +
+                ", dureeS=" + dureeS +
+                ", distance=" + distance +
+                ", vitesseMoy=" + vitesseMoy +
+                ", vitesseMax=" + vitesseMax +
+                ", calories=" + calories +
+                ", altitudeMin=" + altitudeMin +
+                ", altitudeMax=" + altitudeMax +
+                '}';
+    }
 }

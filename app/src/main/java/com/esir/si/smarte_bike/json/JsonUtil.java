@@ -1,9 +1,8 @@
 package com.esir.si.smarte_bike.json;
 
+import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Environment;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,125 +18,72 @@ import java.util.List;
 
 public class JsonUtil {
 
-    private JsonModel jsonModel;
-    private File pathToJsonFile;
-    private static String reportName = "report_3.json";
+     private static final String FILENAME = "data.json";
 
-    public JsonUtil() {
-
-        File root = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DOCUMENTS), "");
-        root = new File(root, reportName);
-        File parent = root.getParentFile();
-        if(!parent.exists() && !parent.mkdirs()) {
-            throw new IllegalStateException("Couldn't create dir: " + parent);
+    /**
+     * Ecrit dans le fichier FILENAME le nouvel itinéraire
+     * Si le fichier contient déja des itinéraires, les conserve et ajoute le nouveau
+     * @param c : context de l'application
+     * @param newItineraire : nouvel itinéraire à ajouter
+     */
+    public static void write(Context c, MyItineraire newItineraire){
+        File f = getOrCreateFile(c);
+        List<MyItineraire> list = new ArrayList<MyItineraire>();
+        if( f.length() != 0){ // si le fichier contient déja des itinéraires, lit le fichier
+             list = JsonUtil.read(c);
         }
-        this.pathToJsonFile = root;
-        this.jsonModel = new JsonModel();//contient liste vide des MyItineraire
+        list.add(newItineraire);
 
-        //peupler jsonModel
-        JSONObject jsonObject = null;
+        new EcrireAsyncTask().execute(f,list);
+    }
+
+    /**
+     * Lit le fichier FILENAME et retourne une liste des itinéraires contenus dans le fichier
+     * @param c : context de l'application
+     * @return list des itinéraires
+     */
+    public static List<MyItineraire> read(Context c){
+        File f = getOrCreateFile(c);
+        List<MyItineraire> list = null;
         try {
-            InputStream inputStream = new FileInputStream(this.pathToJsonFile);
-            int sizeOfJSONFile = inputStream.available();
-            byte[] bytes = new byte[sizeOfJSONFile];
-            inputStream.read(bytes);
-            inputStream.close();
-            jsonObject = new JSONObject(new String(bytes, "UTF-8"));
-            JSONArray jsonArr = jsonObject.getJSONArray("itineraire_list");
-            if (jsonArr.isNull(0)) {
-                //le fichier rapport est vide, ou son format n'est pas compatible
-                EcrireAsyncTask task = new EcrireAsyncTask();
-                task.execute(this.pathToJsonFile, this.jsonModel);
-            } else {
-                //l'ancien rapport est trouve, faut importer son contenu dans this.jsonModel
-                this.lire();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            list = new LireAsyncTask().execute(f).get();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        return list;
+    }
 
+
+    /**
+     * Récupère le fichier FILENAME où sont stocker les itinéraires.
+     * Si le fichier n'existe pas, en créer un nouveau
+     * @param c : context de l'application
+     * @return le fichier correspondant à FILENAME
+     */
+    private static File getOrCreateFile(Context c){
+        File f = new File(c.getFilesDir().getAbsolutePath() + File.separator + FILENAME);
+        if( !f.exists()){ //fichier n'existe pas, on le crée
+            f = new File(c.getFilesDir() + File.separator,FILENAME);
+        }
+        return f;
     }
 
     /**
-     * ajouter un nouveau itineraire dans le rapport
-     * @param nouveauItineraire un nouveau itineraire
+     * ASYNCTASK pour écrire dans le fichier via le JSONModel
      */
-    public void ecrire(MyItineraire nouveauItineraire) {
-        this.getJsonModel().getMyItineraireList().add(nouveauItineraire);
-        EcrireAsyncTask task = new EcrireAsyncTask();
-        task.execute(this.getPathToJsonFile(), this.getJsonModel());
-    }
-
-    /**
-     * charger le contenu du rapport dans this.pathToJsonFile
-     * dans this.jsonModel,
-     * Puis charger le rapport json dans le menu Historique de l'application
-     * depuis le chemin. (A FAIRE)
-     */
-    public void lire() {
-        LireAsyncTask lireAsyncTask = new LireAsyncTask(this);
-        lireAsyncTask.execute(this.getPathToJsonFile());
-
-//        Puis charger le rapport json dans le menu Historique
-// de l'application depuis le chemin. (A FAIRE)
-    }
-
-    public void onBackgroundTaskCompleted(JsonModel jm) {
-        this.jsonModel = jm;
-    }
-
-    public JsonModel getJsonModel() {
-        return jsonModel;
-    }
-
-    public void setJsonModel(JsonModel jsonModel) {
-        this.jsonModel = jsonModel;
-    }
-
-    public File getPathToJsonFile() {
-        return pathToJsonFile;
-    }
-
-    public void setPathToJsonFile(File pathToJsonFile) {
-        this.pathToJsonFile = pathToJsonFile;
-    }
-
-    /* Checks if external storage is available for read and write */
-    public static boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
-    }
-
-    /* Checks if external storage is available to at least read */
-    public static boolean isExternalStorageReadable() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state) ||
-                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            return true;
-        }
-        return false;
-    }
-
-    private class EcrireAsyncTask extends AsyncTask<Object, Void, Void> {
+    private static class EcrireAsyncTask extends AsyncTask<Object, Void, Void> {
 
         @Override
         protected Void doInBackground(Object... params) {
             File path = (File) params[0];
-            JsonModel jsonModel = (JsonModel) params[1];
+            List<MyItineraire> list_itineraire = ( List<MyItineraire>)params[1];
+
+            JsonModel model = new JsonModel(list_itineraire);
+
             FileWriter writer = null;
             try {
                 writer = new FileWriter(path);
-                writer.append(jsonModel.toString());
+                writer.append(model.toString());
                 writer.flush();
                 writer.close();
             } catch (IOException e) {
@@ -148,15 +94,14 @@ public class JsonUtil {
         }
     }
 
-    private class LireAsyncTask extends AsyncTask<File, Void, JsonModel> {
-        JsonUtil caller;
-
-        public LireAsyncTask(JsonUtil caller) {
-            this.caller = caller;
-        }
+    /**
+     * ASYNCTASK pour lire depuis le fichier via le JSONModel
+     * Retourne une liste d'itinéraires
+     */
+    private static class LireAsyncTask extends AsyncTask<File, Void, List<MyItineraire>> {
 
         @Override
-        protected JsonModel doInBackground(File... params) {
+        protected List<MyItineraire> doInBackground(File... params) {
             File path = params[0];
             JSONObject jsonObject = null;
             try {
@@ -177,16 +122,9 @@ public class JsonUtil {
                 e.printStackTrace();
             }
 
-            List<MyItineraire> myItineraireList = new ArrayList<MyItineraire>();
-            myItineraireList = JsonPatron.fillMyItineraireListFromJsonObject(jsonObject);
+            List<MyItineraire> myItineraireList = JsonModel.fillMyItineraireListFromJsonObject(jsonObject);
 
-            return new JsonModel(myItineraireList);
-        }
-
-        @Override
-        protected void onPostExecute(JsonModel jsonModel) {
-            caller.onBackgroundTaskCompleted(jsonModel);
+            return myItineraireList;
         }
     }
-
 }
