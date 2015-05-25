@@ -4,25 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.esir.si.smarte_bike.json.Trip;
-import com.esir.si.smarte_bike.navigation.Itineraire;
+import com.esir.si.smarte_bike.json.JsonUtil;
+import com.esir.si.smarte_bike.json.MyItineraire;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 
 
 public class Historique extends ActionBarActivity {
@@ -32,55 +24,75 @@ public class Historique extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historique);
 
-        //New Itinerary
-        ImageButton it = (ImageButton) findViewById(R.id.imageButton);
-        it.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(Historique.this, Itineraire.class);
-                startActivity(intent);
-            }
-        });
 
         //Table Layout from activity_historique : tl
         TableLayout tl = (TableLayout) findViewById(R.id.historiqueTable);
 
-        //JSONObject
-        JSONObject jsonObject = parseJSONData();
-        Log.i(TAG,"jsonObject = "+jsonObject);
+        //list of itineraries
+        List<MyItineraire> list = JsonUtil.read(this);
 
+        //table row of headings
+        TableRow tr_head = new TableRow(this);
+        tr_head.setLayoutParams(new RadioGroup.LayoutParams(
+                RadioGroup.LayoutParams.WRAP_CONTENT,
+                RadioGroup.LayoutParams.MATCH_PARENT));
+
+        TextView heading_arrivee = new TextView(this);
+        heading_arrivee.setText("Arrivée");
+        heading_arrivee.setWidth(380);
+        heading_arrivee.setTextAppearance(this, R.style.titreColonne);
+        TextView heading_date = new TextView(this);
+        heading_date.setText("Date");
+        heading_date.setWidth(200);
+        heading_date.setTextAppearance(this, R.style.titreColonne);
+        TextView heading_plus = new TextView(this);
+        heading_plus.setText("Plus");
+        heading_plus.setWidth(100);
+        heading_plus.setTextAppearance(this, R.style.titreColonne);
+
+        tr_head.addView(heading_arrivee);
+        tr_head.addView(heading_date);
+        tr_head.addView(heading_plus);
+        tr_head.setPadding(5,5,5,20);
+
+        tl.addView(tr_head);
 
         //Fill table
-        try {
 
-            JSONArray trips = jsonObject.getJSONArray("Trips");
-            //For each trip
-            for(int i=0; i<trips.length();i++){
-                JSONObject childJSONObject = trips.getJSONObject(i);
-                String depart = childJSONObject.getString("depart");
-                final String arrivee = childJSONObject.getString("arrivee");
-                String date = childJSONObject.getString("date");
-                String distance = childJSONObject.getString("distance");
-                final Trip trip = new Trip(depart, arrivee, date, distance);
+            //For each itinerary
+            for(int i=0; i<list.size();i++){
+
+                int dateJour = list.get(i).getDateJour();
+                int dateMois = list.get(i).getDateMois();
+                int dateAnnee = list.get(i).getDateAnnee();
+                String date = dateJour + "/" + dateMois + "/" + dateAnnee;
+
+                String arrText = list.get(i).getArrText();
+
+                final MyItineraire myItineraire = list.get(i);
 
                 //Add row to the table
                 TableRow tr = new TableRow(this);
-                tr.setGravity(Gravity.CENTER);
-                tr.setPadding(5, 5, 5, 5);
+                //tr.setPadding(5, 5, 0, 0);
                 tr.setLayoutParams(new RadioGroup.LayoutParams(
-                        RadioGroup.LayoutParams.MATCH_PARENT,
-                        RadioGroup.LayoutParams.WRAP_CONTENT));
+                        RadioGroup.LayoutParams.WRAP_CONTENT,
+                        RadioGroup.LayoutParams.MATCH_PARENT));
 
                 TextView text_arrivee = new TextView(this);
-                text_arrivee.setText(arrivee);
-                text_arrivee.setPadding(5, 5, 5, 5);
+                text_arrivee.setText(arrText);
+                text_arrivee.setPadding(5, 0, 0, 0);
                 text_arrivee.setTextAppearance(this, R.style.HTexteC1);
                 text_arrivee.setWidth(380);
+                text_arrivee.setMaxWidth(380);
+
                 tr.addView(text_arrivee);
 
                 TextView text_date = new TextView(this);
                 text_date.setText(date);
-                text_date.setPadding(5, 5, 5, 5);
+                text_date.setPadding(5, 0, 0, 0);
                 text_date.setTextAppearance(this, R.style.HTexteC2);
+                text_date.setWidth(200);
+                text_date.setMaxWidth(200);
                 tr.addView(text_date);
 
                 Button button_plus = new Button(this);
@@ -88,13 +100,15 @@ public class Historique extends ActionBarActivity {
                 button_plus.setText("->");
                 button_plus.setTextAppearance(this, R.style.boutonDetails);
                 button_plus.setBackground(getResources().getDrawable(R.drawable.mybutton));
+                button_plus.setHeight(50);
+                button_plus.setWidth(100);
                 tr.addView(button_plus);
 
 
                 button_plus.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         Intent intent = new Intent(Historique.this, Details.class);
-                        intent.putExtra("trip", (Parcelable) trip);
+                        intent.putExtra("myItineraire", (Parcelable) myItineraire);
                         startActivity(intent);
                     }
                 });
@@ -104,55 +118,8 @@ public class Historique extends ActionBarActivity {
 
             }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
     }
 
-    private static JSONObject getObject(String tagName, JSONObject jObj)  throws JSONException {
-        JSONObject subObj = jObj.getJSONObject(tagName);
-        return subObj;
-    }
-
-    private static String getString(String tagName, JSONObject jObj) throws JSONException {
-        return jObj.getString(tagName);
-    }
-
-
-    //Method that will parse the JSON file and will return a JSONObject
-    public JSONObject parseJSONData() {
-        String JSONString = null;
-        JSONObject JSONObject = null;
-        try {
-
-            //open the inputStream to the file
-            InputStream inputStream = getAssets().open("historique.json");
-
-            int sizeOfJSONFile = inputStream.available();
-
-            //array that will store all the data
-            byte[] bytes = new byte[sizeOfJSONFile];
-
-            //reading data into the array from the file
-            inputStream.read(bytes);
-
-            //close the input stream
-            inputStream.close();
-
-            JSONString = new String(bytes, "UTF-8");
-            JSONObject = new JSONObject(JSONString);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        catch (JSONException x) {
-            x.printStackTrace();
-            return null;
-        }
-        return JSONObject;
-    }
 
 }
 

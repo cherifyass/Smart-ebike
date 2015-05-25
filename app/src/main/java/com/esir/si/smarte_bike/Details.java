@@ -1,16 +1,12 @@
 package com.esir.si.smarte_bike;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.esir.si.smarte_bike.json.Trip;
-import com.esir.si.smarte_bike.navigation.Itineraire;
+import com.esir.si.smarte_bike.json.MyItineraire;
 
 
 public class Details extends ActionBarActivity {
@@ -20,25 +16,26 @@ public class Details extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        //New Itinerary
-        ImageButton it = (ImageButton) findViewById(R.id.imageButton2);
-        it.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(Details.this, Itineraire.class);
-                startActivity(intent);
-            }
-        });
-
         TextView depart = (TextView) findViewById(R.id.depart);
         TextView arrivee = (TextView) findViewById(R.id.arrivee);
         TextView date = (TextView) findViewById(R.id.date);
         TextView distance = (TextView) findViewById(R.id.distance);
+        TextView duree = (TextView) findViewById(R.id.duree);
+        TextView calories = (TextView) findViewById(R.id.calories);
+        TextView vitesseMax = (TextView) findViewById(R.id.vitesseMax);
+        TextView vitesseMoy = (TextView) findViewById(R.id.vitesseMoy);
 
-        Trip t = (Trip) getIntent().getParcelableExtra("trip");
-        depart.setText(t.getOrigin());
-        arrivee.setText(t.getDestination());
-        date.setText(t.getDate());
-        distance.setText(t.getDistance());
+
+        MyItineraire MyItineraire = (MyItineraire) getIntent().getParcelableExtra("myItineraire");
+        //Log.i(TAG, "MyItineraire = " + MyItineraire);
+        depart.setText(MyItineraire.getDepText() + "");
+        arrivee.setText(MyItineraire.getArrText() + "");
+        date.setText(MyItineraire.getDateJour() + "/" + MyItineraire.getDateMois() + "/" + MyItineraire.getDateAnnee());
+        distance.setText(MyItineraire.getDistance() + " km");
+        duree.setText(MyItineraire.getDateH() + " : " + MyItineraire.getDureeM() + " : " + MyItineraire.getDureeS());
+        calories.setText(MyItineraire.getCalories() + "");
+        vitesseMax.setText(MyItineraire.getVitesseMax() + " km/h");
+        vitesseMoy.setText(MyItineraire.getVitesseMoy() + " km/h");
     }
 
 

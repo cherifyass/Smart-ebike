@@ -18,16 +18,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imageButton2"
-            android:src="@drawable/add"
-            android:layout_marginRight="0dp"
-            android:layout_weight="1"
-            android:layout_marginLeft="100dp" />
+
     </LinearLayout>
 
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none"
+        android:layout_weight="1">
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,7 +34,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:shrinkColumns="3"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="15dp"
         android:gravity="center"
         android:id="@+id/tab2" >
 
@@ -49,11 +48,12 @@
                 android:text="Départ"
                 style="@style/titreColonne"
                 android:layout_width="0dp"
-                android:width="80dp"
+                android:width="150dp"
                 android:layout_weight="1" />
             <TextView
                 android:id="@+id/depart"
-                android:layout_weight="2" />
+                android:layout_weight="2"
+                android:layout_width="0dp" />
     </TableRow>
 
     <TableRow
@@ -66,13 +66,12 @@
             android:layout_weight="1"
             style="@style/titreColonne"
             android:layout_width="0dp"
-            android:width="80dp"
+            android:width="150dp"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/arrivee"
             android:layout_weight="2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp" />
     </TableRow>
 
     <TableRow
@@ -85,13 +84,12 @@
             android:layout_weight="1"
             style="@style/titreColonne"
             android:layout_width="0dp"
-            android:width="80dp"
+            android:width="150dp"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/date"
             android:layout_weight="2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"  />
     </TableRow>
 
     <TableRow
@@ -104,17 +102,89 @@
             android:layout_weight="1"
             style="@style/titreColonne"
             android:layout_width="0dp"
-            android:width="80dp"
+            android:width="150dp"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/distance"
             android:layout_weight="2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="0dp"  />
     </TableRow>
 
-</LinearLayout>
+    <TableRow
+        android:id="@+id/row5"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/label_duree"
+            android:text="Durée"
+            style="@style/titreColonne"
+            android:layout_width="0dp"
+            android:width="150dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/duree"
+            android:layout_weight="2"
+            android:layout_width="0dp" />
+    </TableRow>
 
 
+
+    <TableRow
+        android:id="@+id/row6"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/label_calories"
+            android:text="Calories dépensées"
+            style="@style/titreColonne"
+            android:layout_width="0dp"
+            android:width="150dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/calories"
+            android:layout_width="0dp"
+            android:layout_weight="2" />
+    </TableRow>
+
+
+        <TableRow
+        android:id="@+id/row7"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/label_vitesseMax"
+            android:text="Vitesse max"
+            style="@style/titreColonne"
+            android:layout_width="0dp"
+            android:width="150dp"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/vitesseMax"
+            android:layout_weight="2"
+            android:layout_width="0dp" />
+    </TableRow>
+
+
+        <TableRow
+            android:id="@+id/row8"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/label_vitesseMoy"
+                android:text="Vitesse moyenne"
+                style="@style/titreColonne"
+                android:layout_width="0dp"
+                android:width="150dp"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/vitesseMoy"
+                android:layout_weight="2"
+                android:layout_width="0dp" />
+        </TableRow>
+
+
+
+    </LinearLayout>
+</ScrollView>
 
 </LinearLayout>

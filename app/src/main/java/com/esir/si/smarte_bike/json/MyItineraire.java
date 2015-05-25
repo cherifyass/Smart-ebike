@@ -1,8 +1,9 @@
 package com.esir.si.smarte_bike.json;
 
-import java.util.Date;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class MyItineraire {
+public class MyItineraire implements Parcelable {
 
     private int dateJour;
     private int dateMois;
@@ -56,6 +57,29 @@ public class MyItineraire {
         this.calories = calories;
         this.altitudeMin = altitudeMin;
         this.altitudeMax = altitudeMax;
+    }
+
+    public MyItineraire(Parcel source){
+        this.dateJour = source.readInt();
+        this.dateMois = source.readInt();
+        this.dateAnnee = source.readInt();
+        this.dateH = source.readInt();
+        this.dateM = source.readInt();
+        this.depLat = source.readDouble();
+        this.depLong = source.readDouble();
+        this.depText = source.readString();
+        this.arrLat = source.readDouble();
+        this.arrLong = source.readDouble();
+        this.arrText = source.readString();
+        this.dureeH = source.readInt();
+        this.dureeM = source.readInt();
+        this.dureeS = source.readInt();
+        this.distance = source.readDouble();
+        this.vitesseMoy = source.readDouble();
+        this.vitesseMax = source.readDouble();
+        this.calories = source.readDouble();
+        this.altitudeMin = source.readDouble();
+        this.altitudeMax = source.readDouble();
     }
 
     public double getArrLat() {
@@ -243,4 +267,43 @@ public class MyItineraire {
                 ", altitudeMax=" + altitudeMax +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(dateJour);
+        dest.writeInt(dateMois);
+        dest.writeInt(dateAnnee);
+        dest.writeInt(dateH);
+        dest.writeInt(dateM);
+        dest.writeDouble(depLat);
+        dest.writeDouble(depLong);
+        dest.writeString(depText);
+        dest.writeDouble(arrLat);
+        dest.writeDouble(arrLong);
+        dest.writeString(arrText);
+        dest.writeInt(dureeH);
+        dest.writeInt(dureeM);
+        dest.writeInt(dureeS);
+        dest.writeDouble(distance);
+        dest.writeDouble(vitesseMax);
+        dest.writeDouble(vitesseMoy);
+        dest.writeDouble(calories);
+        dest.writeDouble(altitudeMax);
+        dest.writeDouble(altitudeMin);
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public MyItineraire createFromParcel(Parcel in) {
+            return new MyItineraire(in);
+        }
+
+        public MyItineraire[] newArray(int size) {
+            return new MyItineraire[size];
+        }
+    };
 }
