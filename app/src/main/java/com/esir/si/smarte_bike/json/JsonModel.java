@@ -52,7 +52,7 @@ public class JsonModel {
                 JSONObject durObj = new JSONObject();
                 durObj.put("h", String.valueOf(currentItineraire.getDureeH()));
                 durObj.put("m", String.valueOf(currentItineraire.getDureeM()));
-                durObj.put("s", currentItineraire.getDureeS());
+                durObj.put("s", String.valueOf(currentItineraire.getDureeS()));
                 itineraireObj.put("duree", durObj);
 
                 itineraireObj.put("distance", String.valueOf(currentItineraire.getDistance()));

@@ -10,6 +10,7 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.esir.si.smarte_bike.R;
+import com.esir.si.smarte_bike.json.JsonUtil;
+import com.esir.si.smarte_bike.json.MyItineraire;
 import com.esir.si.smarte_bike.navigation.direction.Route;
 import com.esir.si.smarte_bike.navigation.direction.Step;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -44,10 +47,10 @@ public class Navigation extends Activity implements OnMapReadyCallback {
     private MapFragment mapFragment;
     private GoogleMap map;
     private Location location;
-    private Route route = null;
+    private static Route route;
     private Polyline polyline = null;
 
-    private List<Step> steps_origin = null;
+    private static List<Step> steps_origin;
     private LatLngBounds bounds = null;
 
     private Marker start_marker = null;
@@ -75,11 +78,15 @@ public class Navigation extends Activity implements OnMapReadyCallback {
     private static int step = -1;
     private static int maxStep = -1;
 
+    // infos
+    private static Calendar now;
+    private static Context c;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-
+        c = this;
         mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map_navigation);
         mapFragment.getMapAsync(this);
 
@@ -212,9 +219,12 @@ public class Navigation extends Activity implements OnMapReadyCallback {
 
         if (location != null) value_speed.setText(location.getSpeed() + ""); // speed
 
-        Calendar now = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        now = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         now.add(Calendar.SECOND, (int) route.getLegs().get(0).getDuration().getValue());
-        value_arriving_time.setText(now.get(Calendar.HOUR_OF_DAY) + "h" + now.get(Calendar.MINUTE)); // arriving time
+
+        String hour_of_day = String.format("%02d",now.get(Calendar.HOUR_OF_DAY));
+        String minute = String.format("%02d", now.get(Calendar.MINUTE));
+        value_arriving_time.setText(hour_of_day + "h" + minute); // arriving time
 
         maxStep = steps_origin.size();
         nextStep(view);
@@ -252,7 +262,12 @@ public class Navigation extends Activity implements OnMapReadyCallback {
 
         if (step == maxStep) { // end
             polyline.remove();
+
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(route.getLegs().get(0).getEndLocation(), 17));
             value_instruction.setText(Html.fromHtml("<b>Vous êtes arrivé !</b>"));
+
+            new DialogSaveItineraire().show(getFragmentManager(),"");
+
         } else {
             Step currentStep = steps_origin.get(step);
 
@@ -284,6 +299,74 @@ public class Navigation extends Activity implements OnMapReadyCallback {
         polylineOptions.width(10);
         polyline = map.addPolyline(polylineOptions);
     }
+
+    public static void saveItinerary(){
+
+        int dateJour = now.get(Calendar.DAY_OF_MONTH);
+        int dateMois = now.get(Calendar.MONTH);
+        int dateAnnee = now.get(Calendar.YEAR);
+        int dateH = now.get(Calendar.HOUR_OF_DAY);
+        int dateM = now.get(Calendar.MINUTE);
+        double depLat = route.getLegs().get(0).getStartLocation().latitude;
+        double depLong = route.getLegs().get(0).getStartLocation().longitude;
+        String depText = route.getLegs().get(0).getStartAddress();
+        double arrLat = route.getLegs().get(0).getEndLocation().latitude;
+        double arrLong = route.getLegs().get(0).getEndLocation().longitude;
+        String arrText = route.getLegs().get(0).getEndAddress();
+
+        int hours = (int) route.getLegs().get(0).getDuration().getValue() / 3600;
+        int remainder = (int) route.getLegs().get(0).getDuration().getValue() - hours * 3600;
+        int mins = remainder / 60;
+        remainder = remainder - mins * 60;
+        int secs = remainder;
+
+        int dureeH = hours;
+        int dureeM = mins;
+        int dureeS = secs;
+
+        double _distance = (route.getLegs().get(0).getDistance().getValue() * 0.001);
+        double vitesseMoy = getVitesseMoy();
+        double vitesseMax = getVitesseMax();
+        double calories = getCalories();
+        double altitudeMin = getAltitudeMin();
+        double altitudeMax = getAltitudeMax();
+
+        MyItineraire itineraire = new MyItineraire(dateJour, dateMois, dateAnnee, dateH, dateM, depLat,
+                                                    depLong, depText, arrLat, arrLong, arrText, dureeH,
+                                                    dureeM, dureeS, _distance, vitesseMoy, vitesseMax,
+                                                    calories, altitudeMin, altitudeMax);
+        JsonUtil.write(c,itineraire);
+        Log.d("Navigation", "Itinéraire enregistré!");
+    }
+
+    private static double getVitesseMoy(){
+        return 20.2;
+    }
+    private static double getVitesseMax(){
+        return 26.6;
+    }
+
+    private static double getCalories(){
+        return 856;
+    }
+
+    private static double getAltitudeMin(){
+        double res = 0;
+        for(Step s : steps_origin){
+            if(s.getElevation() > res ) res = s.getElevation();
+        }
+        return  res;
+    }
+
+    private static double getAltitudeMax(){
+        double res = steps_origin.get(0).getElevation();
+        for(Step s : steps_origin){
+            if(s.getElevation() < res ) res = s.getElevation();
+        }
+        return  res;
+    }
+
+
 }
 
 class ImageDownloadAsync extends AsyncTask<String, Void, Bitmap> {

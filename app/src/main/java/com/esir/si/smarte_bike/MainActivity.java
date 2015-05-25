@@ -94,4 +94,9 @@ public class MainActivity extends FragmentActivity {
         startActivity(intent);
     }
 
+    public void goToParametres(View view){
+        Intent intent = new Intent(this, Parametres.class);
+        startActivity(intent);
+    }
+
 }

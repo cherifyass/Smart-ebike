@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.esir.si.smarte_bike.json.JsonUtil;
 import com.esir.si.smarte_bike.json.MyItineraire;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 
@@ -31,36 +33,46 @@ public class Historique extends ActionBarActivity {
         //list of itineraries
         List<MyItineraire> list = JsonUtil.read(this);
 
-        //table row of headings
-        TableRow tr_head = new TableRow(this);
-        tr_head.setLayoutParams(new RadioGroup.LayoutParams(
-                RadioGroup.LayoutParams.WRAP_CONTENT,
-                RadioGroup.LayoutParams.MATCH_PARENT));
+        // Text view no itinerary found
+        TextView aucun_itineraire = (TextView) findViewById(R.id.no_itinerary);
 
-        TextView heading_arrivee = new TextView(this);
-        heading_arrivee.setText("Arrivée");
-        heading_arrivee.setWidth(380);
-        heading_arrivee.setTextAppearance(this, R.style.titreColonne);
-        TextView heading_date = new TextView(this);
-        heading_date.setText("Date");
-        heading_date.setWidth(200);
-        heading_date.setTextAppearance(this, R.style.titreColonne);
-        TextView heading_plus = new TextView(this);
-        heading_plus.setText("Plus");
-        heading_plus.setWidth(100);
-        heading_plus.setTextAppearance(this, R.style.titreColonne);
+        if( list == null ){
+            // show text view
+            aucun_itineraire.setVisibility(View.VISIBLE);
+        }else {
+            // hide text view
+            aucun_itineraire.setVisibility(View.INVISIBLE);
 
-        tr_head.addView(heading_arrivee);
-        tr_head.addView(heading_date);
-        tr_head.addView(heading_plus);
-        tr_head.setPadding(5,5,5,20);
+            //table row of headings
+            TableRow tr_head = new TableRow(this);
+            tr_head.setLayoutParams(new RadioGroup.LayoutParams(
+                    RadioGroup.LayoutParams.WRAP_CONTENT,
+                    RadioGroup.LayoutParams.MATCH_PARENT));
 
-        tl.addView(tr_head);
+            TextView heading_arrivee = new TextView(this);
+            heading_arrivee.setText("Arrivée");
+            heading_arrivee.setWidth(380);
+            heading_arrivee.setTextAppearance(this, R.style.titreColonne);
+            TextView heading_date = new TextView(this);
+            heading_date.setText("Date");
+            heading_date.setWidth(200);
+            heading_date.setTextAppearance(this, R.style.titreColonne);
+            TextView heading_plus = new TextView(this);
+            heading_plus.setText("Plus");
+            heading_plus.setWidth(100);
+            heading_plus.setTextAppearance(this, R.style.titreColonne);
 
-        //Fill table
+            tr_head.addView(heading_arrivee);
+            tr_head.addView(heading_date);
+            tr_head.addView(heading_plus);
+            tr_head.setPadding(5, 5, 5, 20);
+
+            tl.addView(tr_head);
+
+            //Fill table
 
             //For each itinerary
-            for(int i=0; i<list.size();i++){
+            for (int i = 0; i < list.size(); i++) {
 
                 int dateJour = list.get(i).getDateJour();
                 int dateMois = list.get(i).getDateMois();
@@ -115,8 +127,8 @@ public class Historique extends ActionBarActivity {
 
                 //add row to the table
                 tl.addView(tr);
-
             }
+        }// end else
 
     }
 

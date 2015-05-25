@@ -130,24 +130,6 @@ public class Itineraire extends ActionBarActivity implements AdapterView.OnItemC
                 Log.d("Departure", origin);
                 Log.d("Arrival", destination);
 
-
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-                Date today = Calendar.getInstance().getTime();
-                String reportDate = df.format(today);
-                Log.d("TripDate", reportDate);
-
-                //*********** TEST LECTURE ECRITURE ****************//
-                double jDistance = 0;
-                MyItineraire myItineraire =
-                        new MyItineraire(22, 5, 2020, 20, 24, 0, 0, origin, 0, 0, destination,
-                                0, 0, 0, jDistance, jDistance, jDistance, jDistance, jDistance, jDistance);
-
-                Log.d(TAG, "ECRITURE DANS LE FICHIER");
-                JsonUtil.write(this,myItineraire);
-                List<MyItineraire> list_MyItineraires = JsonUtil.read(this);
-                Log.d(TAG, "CONTENU DU FICHIER: "+list_MyItineraires.toString());
-                //*********** TEST LECTURE ECRITURE ****************//
-
                 //routes = new RequestAPITask(this,this.findViewById(android.R.id.content)).execute(url).get();
                 new RequestAPITask(this, this.findViewById(android.R.id.content)).execute(url);
 

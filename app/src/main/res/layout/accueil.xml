@@ -65,8 +65,7 @@
             android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:text="@string/parametres"
-
-            />
+            android:onClick="goToParametres"/>
 
         <Button
             android:id="@+id/button5"

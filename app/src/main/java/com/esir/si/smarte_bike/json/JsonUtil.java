@@ -46,12 +46,28 @@ public class JsonUtil {
     public static List<MyItineraire> read(Context c){
         File f = getOrCreateFile(c);
         List<MyItineraire> list = null;
-        try {
-            list = new LireAsyncTask().execute(f).get();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if( f.length() != 0) {
+            try {
+                list = new LireAsyncTask().execute(f).get();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return list;
+    }
+
+    /**
+     * Supprime entierement le fichier
+     * @param c
+     */
+    public static void removeHistory(Context c){
+        File root = new File(c.getFilesDir().getAbsolutePath());
+        if( root.exists() ){
+            File f = new File(c.getFilesDir().getAbsolutePath() + File.separator + FILENAME);
+            if( f.exists() ){
+                f.delete();
+            }
+        }
     }
 
 
@@ -71,6 +87,12 @@ public class JsonUtil {
         if( !f.exists()){ //fichier n'existe pas, on le crée
             Log.d("JSONUTIL", "Création du fichier : " + f.getPath() );
             f = new File(c.getFilesDir().getAbsolutePath() + File.separator,FILENAME);
+            try {
+                boolean b = f.createNewFile();
+                Log.d("JSONUTIL", "File created: " + b);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return f;
     }

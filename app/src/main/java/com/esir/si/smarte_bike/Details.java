@@ -32,7 +32,7 @@ public class Details extends ActionBarActivity {
         arrivee.setText(MyItineraire.getArrText() + "");
         date.setText(MyItineraire.getDateJour() + "/" + MyItineraire.getDateMois() + "/" + MyItineraire.getDateAnnee());
         distance.setText(MyItineraire.getDistance() + " km");
-        duree.setText(MyItineraire.getDateH() + " : " + MyItineraire.getDureeM() + " : " + MyItineraire.getDureeS());
+        duree.setText(MyItineraire.getDureeH() + " : " + MyItineraire.getDureeM() + " : " + MyItineraire.getDureeS());
         calories.setText(MyItineraire.getCalories() + "");
         vitesseMax.setText(MyItineraire.getVitesseMax() + " km/h");
         vitesseMoy.setText(MyItineraire.getVitesseMoy() + " km/h");

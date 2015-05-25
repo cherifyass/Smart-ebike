@@ -97,6 +97,15 @@
     </string>
 
     <!-- A Propos -->
-
     <string name="title_activity_apropos">A Propos</string>
+
+    <!-- Navigation activity - Dialog -->
+    <string name="dialog_text">Voulez-vous enregistrer ce parcours ?</string>
+    <string name="dialog_yes">Oui</string>
+    <string name="dialog_no">Non</string>
+
+    <!-- Parametres -->
+    <string name="title_activity_parametres">Paramètres</string>
+    <string name="remove_data">Supprimer l\'historique de navigation</string>
+
 </resources>
