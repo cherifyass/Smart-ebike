@@ -288,30 +288,34 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putString("boutonMeteo", boutonMeteo.getText().toString());
-        savedInstanceState.putParcelable("iconData", iconData);
-        savedInstanceState.putString("temp", temp.getText().toString());
-        savedInstanceState.putString("cityText", cityText.getText().toString());
-        savedInstanceState.putString("condDescr", condDescr.getText().toString());
-        savedInstanceState.putString("hum", hum.getText().toString());
-        savedInstanceState.putString("humLab", humLab.getText().toString());
-        savedInstanceState.putString("windSpeed", windSpeed.getText().toString());
-        savedInstanceState.putString("windLab", windLab.getText().toString());
+        if(boutonMeteo!=null) {
+            savedInstanceState.putString("boutonMeteo", boutonMeteo.getText().toString());
+            savedInstanceState.putParcelable("iconData", iconData);
+            savedInstanceState.putString("temp", temp.getText().toString());
+            savedInstanceState.putString("cityText", cityText.getText().toString());
+            savedInstanceState.putString("condDescr", condDescr.getText().toString());
+            savedInstanceState.putString("hum", hum.getText().toString());
+            savedInstanceState.putString("humLab", humLab.getText().toString());
+            savedInstanceState.putString("windSpeed", windSpeed.getText().toString());
+            savedInstanceState.putString("windLab", windLab.getText().toString());
+        }
     }
 
     public void restoreSavedState(View view, Bundle savedInstanceState) {
         initWeatherViews(view);
-        if(savedInstanceState.getString("boutonMeteo").equals("- Ma météo")) {
-            boutonMeteo.performClick();
+        if(savedInstanceState.getString("boutonMeteo")!=null) {
+            if (savedInstanceState.getString("boutonMeteo").equals("- Ma météo")) {
+                boutonMeteo.performClick();
+            }
+            condIcon.setImageBitmap((Bitmap) savedInstanceState.getParcelable("iconData"));
+            condIcon.setAdjustViewBounds(true);
+            temp.setText(savedInstanceState.getString("temp"));
+            cityText.setText(savedInstanceState.getString("cityText"));
+            condDescr.setText(savedInstanceState.getString("condDescr"));
+            hum.setText(savedInstanceState.getString("hum"));
+            humLab.setText(savedInstanceState.getString("humLab"));
+            windSpeed.setText(savedInstanceState.getString("windSpeed"));
+            windLab.setText(savedInstanceState.getString("windLab"));
         }
-        condIcon.setImageBitmap((Bitmap) savedInstanceState.getParcelable("iconData"));
-        condIcon.setAdjustViewBounds(true);
-        temp.setText(savedInstanceState.getString("temp"));
-        cityText.setText(savedInstanceState.getString("cityText"));
-        condDescr.setText(savedInstanceState.getString("condDescr"));
-        hum.setText(savedInstanceState.getString("hum"));
-        humLab.setText(savedInstanceState.getString("humLab"));
-        windSpeed.setText(savedInstanceState.getString("windSpeed"));
-        windLab.setText(savedInstanceState.getString("windLab"));
     }
 }
