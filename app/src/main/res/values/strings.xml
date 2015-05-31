@@ -81,9 +81,8 @@
     <string name="arrivée">Arrivée</string>
     <string name="date">Date</string>
     <string name="plus">Plus</string>
-    <string name="title_activity_historique">Historique</string>
-    <string name="title_activity_details">Details</string>
-    <string name="details_itineraire">Détails de l\'itinéraire</string>
+    <string name="title_activity_historique">Mes itinéraires</string>
+    <string name="title_activity_details">Détails de l\'itinéraire</string>
     <string name="text_apropos">"Merci d'utiliser Smart E­Bike
         \nSmart E­Bike est une application entièrement imaginée et développée par des étudiants de l'ESIR
         \n(École Supérieure d'Ingénieurs de Rennes)

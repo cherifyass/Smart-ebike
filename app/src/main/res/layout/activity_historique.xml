@@ -5,22 +5,6 @@
     android:orientation="vertical"
     tools:context="com.esir.si.smarte_bike.Historique">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="20dp"
-        android:weightSum="1">
-
-        <TextView
-            android:text="Mes Itinéraires"
-            style="@style/titre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

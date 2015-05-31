@@ -5,23 +5,6 @@
     android:orientation="vertical"
     tools:context="com.esir.si.smarte_bike.Details">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:layout_margin="20dp"
-        android:weightSum="1">
-
-        <TextView
-            android:text="@string/details_itineraire"
-            style="@style/titre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-
-    </LinearLayout>
-
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -35,6 +18,7 @@
         android:layout_height="wrap_content"
         android:shrinkColumns="3"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:id="@+id/tab2" >
 

@@ -3,14 +3,17 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="AppTheme.Base">
         <!-- Customize your theme here. -->
-
     </style>
+
+
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+
 
     <style name="bouton">
         <item name="android:layout_gravity">center</item>
@@ -24,14 +27,14 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#00008B</item>
+        <item name="android:textColor">#ff3cc0dd</item>
         <item name="android:textSize">20dp</item>
         <item name="android:paddingBottom">15dp</item>
     </style>
     <style name="titreColonne">
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">#FF0000</item>
+        <item name="android:textColor">#ffd35057</item>
         <item name="android:paddingBottom">15dp</item>
     </style>
     <style name="boutonDetails">
