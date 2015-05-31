@@ -120,6 +120,7 @@
         </RelativeLayout>
         <!-- End Meteo -->
 
+        <!-- Stats -->
         <Button
             android:id="@+id/boutonStat"
             style="@style/bouton"
@@ -135,11 +136,113 @@
             android:visibility="gone">
 
             <TextView
+                android:id="@+id/no_itineraries"
+                style="@style/titreNoir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true" />
+
+            <LinearLayout
+                android:id="@+id/statsTable"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/lorem" />
+                android:layout_below="@id/no_itineraries"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:shrinkColumns="3">
 
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/titreColonne"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:width="150dp"
+                        android:text="Vitesse Moyenne" />
+
+                    <TextView
+                        android:id="@+id/vitesseMoyenne"
+                        android:layout_width="0dp"
+                        android:layout_weight="2" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/titreColonne"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:width="150dp"
+                        android:text="Vitesse Maximale" />
+
+                    <TextView
+                        android:id="@+id/vitesseMaximale"
+                        android:layout_width="0dp"
+                        android:layout_weight="2" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/titreColonne"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:width="150dp"
+                        android:text="Distance Totale" />
+
+                    <TextView
+                        android:id="@+id/distanceTotale"
+                        android:layout_width="0dp"
+                        android:layout_weight="2" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/titreColonne"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:width="150dp"
+                        android:text="Distance Maximale" />
+
+                    <TextView
+                        android:id="@+id/distanceMaximale"
+                        android:layout_width="0dp"
+                        android:layout_weight="2" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/titreColonne"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:width="150dp"
+                        android:text="Dernière Destination" />
+
+                    <TextView
+                        android:id="@+id/derniereDestination"
+                        android:layout_width="0dp"
+                        android:layout_weight="2" />
+                </TableRow>
+            </LinearLayout>
         </RelativeLayout>
+        <!--end Stats-->
 
         <Button
             android:id="@+id/boutonSante"

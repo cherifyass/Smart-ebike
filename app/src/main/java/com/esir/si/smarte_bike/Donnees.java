@@ -15,9 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.esir.si.smarte_bike.json.JsonUtil;
+import com.esir.si.smarte_bike.json.MyItineraire;
 import com.esir.si.smarte_bike.meteo.JSONWeatherParser;
 import com.esir.si.smarte_bike.meteo.WeatherHttpClient;
 import com.esir.si.smarte_bike.meteo.model_donnees.Weather;
@@ -31,6 +34,7 @@ import com.google.android.gms.location.LocationServices;
 import org.json.JSONException;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
@@ -62,6 +66,21 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
     private GoogleApiClient mGoogleApiClient;
     private boolean mWritten = false;
 
+    /*Widget Stats*/
+    private double mVitesseMoy;
+    private double mVitesseMax;
+    private double mDistanceTotale;
+    private double mDistanceMax;
+    private String mLastDestination;
+
+    private TextView noItineraries;
+    private TextView vitesseMoyenne;
+    private TextView vitesseMaximale;
+    private TextView distanceMaximale;
+    private TextView distanceTotale;
+    private TextView derniereDestination;
+    private LinearLayout statsTable;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,6 +111,8 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
                     //Si le Slider est ouvert...
                     //... on change le texte en "Cacher"
                     boutonStat.setText("- Mes Statistiques");
+                    initStats();
+                    updateStats();
                 } else {
                     //Sinon on met "Afficher"
                     boutonStat.setText("+ Mes Statistiques");
@@ -152,7 +173,69 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
             cityText.setText("Chargement de météo ...");
         }
 
+        /* Widget Stats */
+        if (initStats()) {
+            initStatsViews(view);
+            updateStats();
+        } else {
+            noItineraries = (TextView) view.findViewById(R.id.no_itineraries);
+            noItineraries.setText("Aucuns itinéraires enregistrés !");
+            statsTable = (LinearLayout) view.findViewById(R.id.statsTable);
+            statsTable.setVisibility(View.INVISIBLE);
+        }
         return view;
+    }
+
+    // return false s'il n'y pas d'itinéraires.
+    public boolean initStats() {
+        List<MyItineraire> list = JsonUtil.read(this.getActivity());
+        mVitesseMoy = 0;
+        mVitesseMax = 0;
+        mDistanceMax = 0;
+        mDistanceTotale = 0;
+        if (list != null && list.size() != 0) {
+            for (int i = 0; i < list.size(); i++) {
+                mVitesseMoy += list.get(i).getVitesseMoy();
+                if (mVitesseMax < list.get(i).getVitesseMax())
+                    mVitesseMax = list.get(i).getVitesseMax();
+                mDistanceTotale += list.get(i).getDistance();
+                if (mDistanceMax < list.get(i).getDistance())
+                    mDistanceMax = list.get(i).getDistance();
+            }
+            mVitesseMoy = mVitesseMoy / list.size();
+            mLastDestination = list.get(list.size() - 1).getArrText();
+
+            if (statsTable != null)
+                statsTable.setVisibility(View.VISIBLE);
+            return true;
+        } else {
+            if (statsTable != null)
+                statsTable.setVisibility(View.INVISIBLE);
+            return false;
+        }
+    }
+
+    public void initStatsViews(View view) {
+        statsTable = (LinearLayout) view.findViewById(R.id.statsTable);
+        statsTable.setVisibility(View.VISIBLE);
+        noItineraries = (TextView) view.findViewById(R.id.no_itineraries);
+        vitesseMoyenne = (TextView) view.findViewById(R.id.vitesseMoyenne);
+        vitesseMaximale = (TextView) view.findViewById(R.id.vitesseMaximale);
+        distanceMaximale = (TextView) view.findViewById(R.id.distanceMaximale);
+        distanceTotale = (TextView) view.findViewById(R.id.distanceTotale);
+        derniereDestination = (TextView) view.findViewById(R.id.derniereDestination);
+    }
+
+    public void updateStats() {
+
+        if (vitesseMoyenne != null) {
+            DecimalFormat df = new DecimalFormat("#.00");
+            vitesseMoyenne.setText(String.valueOf(df.format(mVitesseMoy)) + " km/h");
+            vitesseMaximale.setText(String.valueOf(df.format(mVitesseMax)) + " km/h");
+            distanceMaximale.setText(String.valueOf(df.format(mDistanceMax)) + " km");
+            distanceTotale.setText(String.valueOf(df.format(mDistanceTotale)) + " km");
+            derniereDestination.setText(String.valueOf(mLastDestination));
+        }
     }
 
     public void initWeatherViews(View view) {
@@ -288,7 +371,7 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        if(boutonMeteo!=null) {
+        if (boutonMeteo != null) {
             savedInstanceState.putString("boutonMeteo", boutonMeteo.getText().toString());
             savedInstanceState.putParcelable("iconData", iconData);
             savedInstanceState.putString("temp", temp.getText().toString());
@@ -298,12 +381,24 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
             savedInstanceState.putString("humLab", humLab.getText().toString());
             savedInstanceState.putString("windSpeed", windSpeed.getText().toString());
             savedInstanceState.putString("windLab", windLab.getText().toString());
+            /* Stats */
+            savedInstanceState.putString("noItineraries", noItineraries.getText().toString());
+            savedInstanceState.putString("boutonStats", boutonStat.getText().toString());
+            if (vitesseMoyenne != null) {
+                savedInstanceState.putString("vitesseMoy", vitesseMoyenne.getText().toString());
+                savedInstanceState.putString("vitesseMax", vitesseMaximale.getText().toString());
+                savedInstanceState.putString("distanceTotale", distanceTotale.getText().toString());
+                savedInstanceState.putString("distanceMax", distanceMaximale.getText().toString());
+                savedInstanceState.putString("lastDest", derniereDestination.getText().toString());
+            }
         }
     }
 
     public void restoreSavedState(View view, Bundle savedInstanceState) {
         initWeatherViews(view);
-        if(savedInstanceState.getString("boutonMeteo")!=null) {
+        initStatsViews(view);
+        initStats();
+        if (savedInstanceState.getString("boutonMeteo") != null) {
             if (savedInstanceState.getString("boutonMeteo").equals("- Ma météo")) {
                 boutonMeteo.performClick();
             }
@@ -316,6 +411,18 @@ public class Donnees extends Fragment implements GoogleApiClient.ConnectionCallb
             humLab.setText(savedInstanceState.getString("humLab"));
             windSpeed.setText(savedInstanceState.getString("windSpeed"));
             windLab.setText(savedInstanceState.getString("windLab"));
+            /*Stats*/
+            if (savedInstanceState.getString("boutonStats").equals("- Mes Statistiques")) {
+                boutonStat.performClick();
+            }
+            noItineraries.setText(savedInstanceState.getString("noItineraries"));
+            if (vitesseMoyenne != null) {
+                vitesseMoyenne.setText(savedInstanceState.getString("vitesseMoy"));
+                vitesseMaximale.setText(savedInstanceState.getString("vitesseMax"));
+                distanceMaximale.setText(savedInstanceState.getString("distanceMax"));
+                distanceTotale.setText(savedInstanceState.getString("distanceTotale"));
+                derniereDestination.setText(savedInstanceState.getString("lastDest"));
+            }
         }
     }
 }
